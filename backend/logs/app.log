@@ -1,0 +1,26 @@
+2025-06-24 13:19:55 | INFO     | app.core.logging:setup_logging:96 | 日志系统初始化完成
+2025-06-24 13:19:55 | INFO     | app.utils.file_utils:ensure_directories:31 | 确保目录存在: uploads
+2025-06-24 13:19:55 | INFO     | app.utils.file_utils:ensure_directories:31 | 确保目录存在: uploads/images
+2025-06-24 13:19:55 | INFO     | app.utils.file_utils:ensure_directories:31 | 确保目录存在: uploads/yaml
+2025-06-24 13:19:55 | INFO     | app.utils.file_utils:ensure_directories:31 | 确保目录存在: uploads/playwright
+2025-06-24 13:19:55 | INFO     | app.utils.file_utils:ensure_directories:31 | 确保目录存在: logs
+2025-06-24 13:19:55 | INFO     | app.utils.file_utils:ensure_directories:31 | 确保目录存在: static
+2025-06-24 13:19:55 | INFO     | app.utils.file_utils:ensure_directories:31 | 确保目录存在: screenshots
+2025-06-24 13:19:55 | INFO     | app.main:validate_system_config:136 | 验证系统配置...
+2025-06-24 13:19:55 | INFO     | app.core.llms:get_model_config_status:100 | AI模型配置状态: {'deepseek_configured': True, 'openai_configured': True, 'qwen_vl_configured': True, 'ui_tars_configured': True}
+2025-06-24 13:19:55 | INFO     | app.main:validate_system_config:145 | ✅ AI模型配置: {'deepseek_configured': True, 'openai_configured': True, 'qwen_vl_configured': True, 'ui_tars_configured': True}
+2025-06-24 13:19:55 | INFO     | app.main:validate_system_config:148 | ✅ 多模态服务验证完成
+2025-06-24 13:19:55 | INFO     | app.main:init_databases:158 | 初始化数据库连接...
+2025-06-24 13:19:55 | INFO     | app.core.database_startup:initialize_database_on_startup:26 | 🚀 开始初始化数据库...
+2025-06-24 13:19:55 | INFO     | app.database.connection:initialize:37 | 使用配置的数据库URL: localhost:3306/ai_automation
+2025-06-24 13:19:55 | INFO     | app.database.connection:initialize:58 | 数据库连接初始化成功
+2025-06-24 13:19:55 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:19:55 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:19:55 | WARNING  | app.core.database_startup:initialize_database_on_startup:47 | ⚠️ 将回退到文件存储模式
+2025-06-24 13:19:55 | WARNING  | app.main:init_databases:167 | ⚠️ 主数据库初始化失败，将使用文件存储
+2025-06-24 13:19:55 | INFO     | app.main:init_databases:173 | ✅ 数据库连接初始化完成
+2025-06-24 13:19:55 | INFO     | app.main:warmup_ai_models:184 | 预热AI模型...
+2025-06-24 13:19:55 | INFO     | app.main:warmup_ai_models:195 | ✅ AI模型预热完成
+2025-06-24 13:19:55 | INFO     | app.main:lifespan:44 | ✅ 系统启动完成

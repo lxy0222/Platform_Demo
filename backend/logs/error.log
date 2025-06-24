@@ -1,0 +1,4 @@
+2025-06-24 13:19:55 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:19:55 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
