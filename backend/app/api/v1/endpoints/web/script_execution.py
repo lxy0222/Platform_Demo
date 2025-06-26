@@ -16,6 +16,7 @@ from datetime import datetime
 from pathlib import Path
 
 from app.core.agents import StreamResponseCollector
+from app.core.config import settings
 from app.core.messages import StreamMessage
 from app.core.messages.web import PlaywrightExecutionRequest, ScriptExecutionRequest, ScriptExecutionStatus
 from app.core.types import AgentPlatform
@@ -42,7 +43,7 @@ script_statuses: Dict[str, Dict[str, ScriptExecutionStatus]] = {}
 SESSION_TIMEOUT = 3600  # 1小时
 
 # Playwright工作空间路径
-PLAYWRIGHT_WORKSPACE = Path(r"C:\Users\86134\Desktop\workspace\playwright-workspace")
+PLAYWRIGHT_WORKSPACE = Path(settings.UI_UIAUTOMATION_DIR+"/tests")
 
 # 统一执行请求和响应模型
 class UnifiedScriptExecutionRequest(BaseModel):
@@ -111,7 +112,7 @@ async def resolve_script_by_id(script_id: str) -> Dict[str, Any]:
             # 如果路径不存在，尝试添加扩展名
             if not script_path.exists():
                 if db_script.script_format == ScriptFormat.PLAYWRIGHT:
-                    script_path = PLAYWRIGHT_WORKSPACE / "e2e" / f"{db_script.name}.spec.ts"
+                    script_path = PLAYWRIGHT_WORKSPACE / "e2e" / f"{db_script.name}"
                 else:
                     script_path = PLAYWRIGHT_WORKSPACE / "e2e" / f"{db_script.name}.yaml"
 

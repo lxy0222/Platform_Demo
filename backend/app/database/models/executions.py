@@ -21,8 +21,8 @@ class ScriptExecution(BaseModel):
     
     # 执行状态
     status = Column(
-        Enum('pending', 'running', 'completed', 'failed', 'cancelled'), 
-        nullable=False, 
+        Enum('pending', 'running', 'completed', 'failed', 'cancelled', name='script_execution_status_enum'),
+        nullable=False,
         default='pending'
     )
     
@@ -70,7 +70,7 @@ class ExecutionArtifact(BaseModel):
     
     # 工件信息
     artifact_type = Column(
-        Enum('screenshot', 'video', 'log', 'report', 'data', 'other'), 
+        Enum('screenshot', 'video', 'log', 'report', 'data', 'other', name='artifact_type_enum'),
         nullable=False
     )
     artifact_name = Column(String(255), nullable=False)
@@ -107,14 +107,14 @@ class BatchExecution(BaseModel):
     
     # 执行配置
     execution_config = Column(JSON)
-    parallel_execution = Column(Enum('true', 'false'), default='false')
+    parallel_execution = Column(Enum('true', 'false', name='parallel_execution_enum'), default='false')
     max_concurrent = Column(Integer, default=1)
-    continue_on_error = Column(Enum('true', 'false'), default='true')
+    continue_on_error = Column(Enum('true', 'false', name='continue_on_error_enum'), default='true')
     
     # 执行状态
     status = Column(
-        Enum('pending', 'running', 'completed', 'failed', 'cancelled'), 
-        nullable=False, 
+        Enum('pending', 'running', 'completed', 'failed', 'cancelled', name='batch_execution_status_enum'),
+        nullable=False,
         default='pending'
     )
     
@@ -162,8 +162,8 @@ class ExecutionLog(BaseModel):
     
     # 日志信息
     log_level = Column(
-        Enum('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'), 
-        nullable=False, 
+        Enum('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL', name='log_level_enum'),
+        nullable=False,
         default='INFO'
     )
     message = Column(Text, nullable=False)

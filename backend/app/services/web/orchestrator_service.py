@@ -151,7 +151,7 @@ class WebOrchestrator:
             # 发送到图片分析智能体
             await self.runtime.publish_message(
                 analysis_request,
-                topic_id=TopicId(type=TopicTypes.IMAGE_ANALYZER.value, source="user")
+                topic_id=TopicId(type=TopicTypes.IMAGE_ANALYZER.value, source="user")   # 下一步调用图片分析智能体
             )
             logger.info(f"业务流程1完成: {session_id}")
 

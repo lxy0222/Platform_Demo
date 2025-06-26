@@ -18,7 +18,7 @@ from loguru import logger
 
 from app.core.messages.web import WebMultimodalAnalysisResponse
 from app.core.agents.base import BaseAgent
-from app.core.types import TopicTypes, AgentTypes, AGENT_NAMES, MessageRegion
+from app.core.types import TopicTypes, AgentTypes, AGENT_NAMES, MessageRegion, LLModel
 
 
 @type_subscription(topic_type=TopicTypes.PLAYWRIGHT_GENERATOR.value)
@@ -54,7 +54,7 @@ class PlaywrightGeneratorAgent(BaseAgent):
         return agent_factory.create_assistant_agent(
             name="playwright_generator",
             system_message=cls._build_prompt_template_static(),
-            model_client_type="deepseek",
+            model_client_type=LLModel.DEEPSEEK,
             model_client_stream=True,
             **kwargs
         )
@@ -455,19 +455,13 @@ const items = await aiQuery("获取商品列表");
         """保存生成的Playwright文件"""
         try:
             from app.core.config import settings
-            # 创建输出目录
-            output_dir = Path(settings.MIDSCENE_SCRIPT_PATH)
-            output_dir.mkdir(parents=True, exist_ok=True)
+
+            # 创建输出目录 - 直接指向项目根目录/tests/e2e
+            e2e_dir = Path(settings.UI_UIAUTOMATION_DIR) / settings.MIDSCENE_SCRIPT_PATH / "e2e"
+            e2e_dir.mkdir(parents=True, exist_ok=True)
 
             # 生成时间戳
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            # project_name = f"test_{analysis_id}_{timestamp}"
-            project_dir = output_dir    # / project_name
-            project_dir.mkdir(exist_ok=True)
-
-            # 创建e2e目录
-            e2e_dir = project_dir / "e2e"
-            e2e_dir.mkdir(exist_ok=True)
 
             file_paths = {}
 
@@ -503,7 +497,7 @@ const items = await aiQuery("获取商品列表");
 
             # ------------- 以上内容已经生成，暂时不需要，所以注释掉 -----------
 
-            logger.info(f"Playwright项目文件已保存到: {project_dir}")
+            logger.info(f"Playwright测试文件已保存到: {e2e_dir}")
             return file_paths
 
         except Exception as e:

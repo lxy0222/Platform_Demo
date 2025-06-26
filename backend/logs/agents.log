@@ -1,0 +1,65 @@
+2025-06-24 15:35:48 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-06-24 15:35:48 | INFO     | app.agents.factory:register_web_agents:201 | 开始注册Web平台智能体...
+2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: 图片分析智能体
+2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: YAML生成智能体
+2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: YAML脚本执行智能体
+2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: Playwright代码生成智能体
+2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: Playwright执行智能体
+2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: 脚本数据库保存智能体
+2025-06-24 15:35:48 | INFO     | app.agents.factory:register_web_agents:246 | Web平台智能体注册完成，共注册 6 个智能体
+2025-06-24 15:35:48 | INFO     | app.agents.factory:register_stream_collector:331 | 流式响应收集器注册成功
+2025-06-24 15:35:48 | INFO     | app.core.agents.base:__init__:38 | 初始化 图片分析智能体 智能体 (ID: image_analyzer)
+2025-06-24 15:35:48 | INFO     | app.agents.web.image_analyzer:__init__:49 | 图片专门分析智能体初始化完成，用户反馈: False
+2025-06-24 15:35:48 | INFO     | app.agents.factory:create_agent:137 | 创建智能体: 图片分析智能体
+2025-06-24 15:35:48 | INFO     | app.agents.factory:create_assistant_agent:102 | 创建 AssistantAgent: ui_expert (模型: uitars)
+2025-06-24 15:35:48 | INFO     | app.agents.factory:create_assistant_agent:102 | 创建 AssistantAgent: interaction_analyst (模型: uitars)
+2025-06-24 15:35:48 | INFO     | app.agents.factory:create_assistant_agent:102 | 创建 AssistantAgent: midscene_expert (模型: deepseek)
+2025-06-24 15:35:48 | INFO     | app.agents.web.image_analyzer:_convert_image_to_agimage:819 | 成功转换图片为AGImage，尺寸: (2652, 1362)
+2025-06-24 15:35:51 | ERROR    | app.agents.web.image_analyzer:_run_team_analysis:293 | 团队分析执行失败: AuthenticationError: Error code: 401 - {'error': {'code': 'AuthenticationError', 'message': 'The API key in the request is missing or invalid. Request id: 0217507505497155370b800396c5d3c2492863bdea6ffcff853bc', 'param': '', 'type': 'Unauthorized'}}
+Traceback:
+Traceback (most recent call last):
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_agentchat/teams/_group_chat/_chat_agent_container.py", line 79, in handle_request
+    async for msg in self._agent.on_messages_stream(self._message_buffer, ctx.cancellation_token):
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_agentchat/agents/_assistant_agent.py", line 852, in on_messages_stream
+    async for inference_output in self._call_llm(
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_agentchat/agents/_assistant_agent.py", line 965, in _call_llm
+    async for chunk in model_client.create_stream(
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_ext/models/openai/_openai_client.py", line 824, in create_stream
+    async for chunk in chunks:
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_ext/models/openai/_openai_client.py", line 1015, in _create_stream_chunks
+    stream = await stream_future
+             ^^^^^^^^^^^^^^^^^^^
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2028, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1784, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1584, in request
+    raise self._make_status_error_from_response(err.response) from None
+
+openai.AuthenticationError: Error code: 401 - {'error': {'code': 'AuthenticationError', 'message': 'The API key in the request is missing or invalid. Request id: 0217507505497155370b800396c5d3c2492863bdea6ffcff853bc', 'param': '', 'type': 'Unauthorized'}}
+
+2025-06-24 15:35:51 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [图片分析智能体] operation 耗时: 3.24秒
+2025-06-24 15:35:51 | INFO     | app.agents.web.image_analyzer:_route_to_script_generators:157 | 成功发送分析结果到 playwright 生成智能体
+2025-06-24 15:35:51 | INFO     | app.core.agents.base:__init__:38 | 初始化 Playwright代码生成智能体 智能体 (ID: playwright_generator)
+2025-06-24 15:35:51 | INFO     | app.agents.web.playwright_generator:__init__:39 | Playwright代码生成智能体初始化完成: Playwright代码生成智能体
+2025-06-24 15:35:51 | INFO     | app.agents.factory:create_agent:137 | 创建智能体: Playwright代码生成智能体
+2025-06-24 15:35:51 | INFO     | app.agents.factory:create_assistant_agent:102 | 创建 AssistantAgent: playwright_generator (模型: deepseek)
+2025-06-24 15:36:21 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [Playwright代码生成智能体] operation 耗时: 29.86秒
+2025-06-24 15:36:21 | INFO     | app.agents.web.playwright_generator:_save_playwright_files:506 | Playwright项目文件已保存到: C:\Users\86134\Desktop\workspace\playwright-workspace
+2025-06-24 15:36:21 | INFO     | app.agents.web.playwright_generator:_send_to_database_saver:329 | Playwright脚本已发送到数据库保存智能体: 9fd099a7-1ecb-4d4f-a4e5-99f893c02e43
+2025-06-24 15:36:21 | INFO     | app.core.agents.base:__init__:38 | 初始化 脚本数据库保存智能体 智能体 (ID: script_database_saver)
+2025-06-24 15:36:21 | INFO     | app.agents.web.script_database_saver:__init__:54 | 脚本数据库保存智能体初始化完成: 脚本数据库保存智能体
+2025-06-24 15:36:21 | INFO     | app.agents.factory:create_agent:137 | 创建智能体: 脚本数据库保存智能体
+2025-06-24 15:36:21 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [脚本数据库保存智能体] script_save 耗时: 0.04秒
+2025-06-24 15:36:21 | INFO     | app.agents.web.script_database_saver:handle_script_save_request:140 | 脚本保存成功: e232c392-e5e0-40bd-989e-e8555a6910d2 - test_20250624_153621.spec.ts
+2025-06-24 15:36:21 | INFO     | app.agents.factory:clear_registered_agents:375 | 已清空智能体注册记录

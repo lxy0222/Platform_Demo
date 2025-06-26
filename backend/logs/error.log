@@ -2,3 +2,332 @@
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
 2025-06-24 13:19:55 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:32 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 13:35:42 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 14:22:34 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 14:22:34 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'localhost'")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-24 14:25:07 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: role "postgres" does not exist
+2025-06-24 14:25:07 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: role "postgres" does not exist
+2025-06-24 14:28:05 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: role "postgres" does not exist
+2025-06-24 14:28:05 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: role "postgres" does not exist
+2025-06-24 15:11:04 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:11:04 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:11:25 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:11:25 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:13:30 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:13:30 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:21:38 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:21:38 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:21:50 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.database.repositories.script_repository:search_scripts:114 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.services.database_script_service:search_scripts:180 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.api.v1.endpoints.web.script_management:search_scripts:106 | 搜索脚本失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.database.repositories.script_repository:get_statistics:198 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.services.database_script_service:get_script_statistics:189 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:21:50 | ERROR    | app.api.v1.endpoints.web.script_management:get_script_statistics:118 | 获取脚本统计失败: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: 关系 "test_scripts" 不存在
+[SQL: SELECT count(test_scripts.id) AS count_1 
+FROM test_scripts]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-24 15:28:25 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:28:25 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:28:41 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:28:41 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:28:51 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:28:51 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:28:59 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:28:59 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:29:14 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:29:14 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:29:28 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:29:28 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:29:44 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:29:44 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:30:39 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:30:39 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:30:55 | ERROR    | app.database.connection:create_tables:76 | 数据库表创建失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:30:55 | ERROR    | app.core.database_startup:initialize_database_on_startup:46 | ❌ 数据库初始化失败: PostgreSQL AsyncPgEnum type requires a name.
+2025-06-24 15:35:51 | ERROR    | app.agents.web.image_analyzer:_run_team_analysis:293 | 团队分析执行失败: AuthenticationError: Error code: 401 - {'error': {'code': 'AuthenticationError', 'message': 'The API key in the request is missing or invalid. Request id: 0217507505497155370b800396c5d3c2492863bdea6ffcff853bc', 'param': '', 'type': 'Unauthorized'}}
+Traceback:
+Traceback (most recent call last):
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_agentchat/teams/_group_chat/_chat_agent_container.py", line 79, in handle_request
+    async for msg in self._agent.on_messages_stream(self._message_buffer, ctx.cancellation_token):
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_agentchat/agents/_assistant_agent.py", line 852, in on_messages_stream
+    async for inference_output in self._call_llm(
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_agentchat/agents/_assistant_agent.py", line 965, in _call_llm
+    async for chunk in model_client.create_stream(
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_ext/models/openai/_openai_client.py", line 824, in create_stream
+    async for chunk in chunks:
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_ext/models/openai/_openai_client.py", line 1015, in _create_stream_chunks
+    stream = await stream_future
+             ^^^^^^^^^^^^^^^^^^^
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2028, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1784, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1584, in request
+    raise self._make_status_error_from_response(err.response) from None
+
+openai.AuthenticationError: Error code: 401 - {'error': {'code': 'AuthenticationError', 'message': 'The API key in the request is missing or invalid. Request id: 0217507505497155370b800396c5d3c2492863bdea6ffcff853bc', 'param': '', 'type': 'Unauthorized'}}
+

@@ -5,6 +5,12 @@ UI自动化测试系统 - 枚举类型定义
 from enum import Enum
 
 
+class LLModel(Enum):
+    """LLM模型类型"""
+    UITARS = "uitars"
+    QWENVL = "qwenvl"
+    DEEPSEEK = "deepseek"
+
 class AgentPlatform(Enum):
     """智能体平台类型"""
     WEB = "web"

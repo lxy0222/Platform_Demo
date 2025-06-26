@@ -25,7 +25,7 @@ from app.core.messages.web import (
     PageAnalysis, UIElement, AnalysisType
 )
 from app.core.agents.base import BaseAgent
-from app.core.types import TopicTypes, AgentTypes, AGENT_NAMES, MessageRegion
+from app.core.types import TopicTypes, AgentTypes, AGENT_NAMES, MessageRegion, LLModel
 
 
 @type_subscription(topic_type=TopicTypes.IMAGE_ANALYZER.value)
@@ -56,7 +56,7 @@ class ImageAnalyzerAgent(BaseAgent):
         return agent_factory.create_assistant_agent(
             name=AgentTypes.UI_EXPERT.value,
             system_message=cls._build_ui_expert_prompt(),
-            model_client_type="uitars",
+            model_client_type=LLModel.QWENVL,
             **kwargs
         )
 
@@ -68,7 +68,7 @@ class ImageAnalyzerAgent(BaseAgent):
         return agent_factory.create_assistant_agent(
             name=AgentTypes.INTERACTION_ANALYST.value,
             system_message=cls._build_interaction_analyst_prompt(),
-            model_client_type="uitars",
+            model_client_type=LLModel.QWENVL,
             **kwargs
         )
 
@@ -80,7 +80,7 @@ class ImageAnalyzerAgent(BaseAgent):
         return agent_factory.create_assistant_agent(
             name=AgentTypes.QUALITY_REVIEWER.value,
             system_message=cls._build_quality_reviewer_prompt(),
-            model_client_type="deepseek",
+            model_client_type=LLModel.DEEPSEEK,
             **kwargs
         )
 
@@ -92,7 +92,7 @@ class ImageAnalyzerAgent(BaseAgent):
         return agent_factory.create_assistant_agent(
             name=AgentTypes.MIDSCENE_EXPERT.value,
             system_message=cls._build_midscene_expert_prompt(),
-            model_client_type="deepseek",
+            model_client_type=LLModel.DEEPSEEK,
             **kwargs
         )
 

@@ -68,7 +68,7 @@ const menuItems: MenuItem[] = [
   },
   {
     key: 'management',
-    label: '管理',
+    label: '项目管理',
     type: 'group',
     icon: null,
     children: [
@@ -90,7 +90,7 @@ const menuItems: MenuItem[] = [
   },
   {
     key: 'requirements',
-    label: '需求',
+    label: '需求管理',
     type: 'group',
     icon: null,
     children: [
@@ -119,7 +119,7 @@ const menuItems: MenuItem[] = [
   },
   {
     key: 'web-automation',
-    label: 'Web',
+    label: 'UI测试',
     type: 'group',
     icon: null,
     children: [
@@ -155,7 +155,7 @@ const menuItems: MenuItem[] = [
   },
   {
     key: 'android-automation',
-    label: 'Android',
+    label: '移动端测试',
     type: 'group',
     icon: null,
     children: [

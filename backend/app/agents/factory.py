@@ -11,7 +11,7 @@ from loguru import logger
 
 from app.core.config import settings
 from app.core.llms import get_deepseek_model_client, get_uitars_model_client, get_qwenvl_model_client
-from app.core.types import AgentTypes, TopicTypes, AGENT_NAMES, AgentPlatform
+from app.core.types import AgentTypes, TopicTypes, AGENT_NAMES, AgentPlatform, LLModel
 from app.core.agents.base import BaseAgent
 
 
@@ -66,7 +66,7 @@ class AgentFactory:
     def create_assistant_agent(self,
                                name: str,
                                system_message: str,
-                               model_client_type: str = "deepseek",
+                               model_client_type: str = LLModel.DEEPSEEK,
                                model_client_stream: bool = True,
                                **kwargs) -> AssistantAgent:
         """创建 AssistantAgent 实例
@@ -83,9 +83,9 @@ class AgentFactory:
         """
         try:
             # 选择模型客户端
-            if model_client_type == "uitars":
+            if model_client_type == LLModel.UITARS:
                 model_client = get_uitars_model_client()
-            elif model_client_type == "qwenvl":
+            elif model_client_type == LLModel.QWENVL:
                 model_client = get_qwenvl_model_client()
             else:
                 model_client = get_deepseek_model_client()

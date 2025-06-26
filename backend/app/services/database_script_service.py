@@ -78,6 +78,10 @@ class DatabaseScriptService:
     async def save_script(self, script: TestScript) -> TestScript:
         """保存脚本到数据库"""
         try:
+            # 确保会话存在
+            if script.session_id:
+                await self._ensure_session_exists(script.session_id)
+
             async with db_manager.get_session() as session:
                 # 检查脚本是否已存在
                 existing = await self.script_repo.get_by_id(session, script.id)

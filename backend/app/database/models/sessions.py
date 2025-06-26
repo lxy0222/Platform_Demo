@@ -15,9 +15,9 @@ class Session(BaseModel):
     project_id = Column(String(36), ForeignKey('projects.id', ondelete='SET NULL'))
     
     # 会话信息
-    session_type = Column(Enum('image_analysis', 'url_analysis', 'multi_crawl'), nullable=False)
-    status = Column(Enum('pending', 'processing', 'completed', 'failed'), default='pending')
-    platform = Column(Enum('web', 'android', 'api'), default='web')
+    session_type = Column(Enum('image_analysis', 'url_analysis', 'multi_crawl', name='session_type_enum'), nullable=False)
+    status = Column(Enum('pending', 'processing', 'completed', 'failed', name='session_status_enum'), default='pending')
+    platform = Column(Enum('web', 'android', 'api', name='session_platform_enum'), default='web')
     
     # 请求和结果数据
     request_data = Column(JSON)

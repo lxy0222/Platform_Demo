@@ -21,8 +21,8 @@ class TestScript(BaseModel):
     # 基本信息
     name = Column(String(255), nullable=False)
     description = Column(Text)
-    script_format = Column(Enum('yaml', 'playwright'), nullable=False)
-    script_type = Column(Enum('image_analysis', 'url_analysis', 'mixed_analysis', 'manual_creation'), nullable=False)
+    script_format = Column(Enum('yaml', 'playwright', name='script_format_enum'), nullable=False)
+    script_type = Column(Enum('image_analysis', 'url_analysis', 'mixed_analysis', 'manual_creation', name='script_type_enum'), nullable=False)
     
     # 脚本内容
     content = Column(Text, nullable=False)
@@ -37,7 +37,7 @@ class TestScript(BaseModel):
     # 执行统计
     execution_count = Column(Integer, default=0)
     last_execution_time = Column(DateTime)
-    last_execution_status = Column(Enum('pending', 'running', 'completed', 'failed', 'cancelled'))
+    last_execution_status = Column(Enum('pending', 'running', 'completed', 'failed', 'cancelled', name='execution_status_enum'))
     
     # 分类和标签
     category = Column(String(100))
@@ -114,7 +114,7 @@ class ScriptRelationship(BaseModel):
     # 关联脚本
     source_script_id = Column(String(36), ForeignKey('test_scripts.id', ondelete='CASCADE'), nullable=False)
     target_script_id = Column(String(36), ForeignKey('test_scripts.id', ondelete='CASCADE'), nullable=False)
-    relationship_type = Column(Enum('derived_from', 'similar_to', 'depends_on'), nullable=False)
+    relationship_type = Column(Enum('derived_from', 'similar_to', 'depends_on', name='relationship_type_enum'), nullable=False)
     
     # 关系
     source_script = relationship("TestScript", foreign_keys=[source_script_id], back_populates="source_relationships")

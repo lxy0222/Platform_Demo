@@ -17,7 +17,7 @@ class ApplicationSettings(BaseSettings):
     """应用基础配置"""
 
     # 应用信息
-    APP_NAME: str = "UI自动化测试系统"
+    APP_NAME: str = "智能自动化测试系统"
     APP_VERSION: str = "2.0.0"
     APP_DESCRIPTION: str = "基于多模态大模型与多智能体协作的自动化测试系统"
     DEBUG: bool = False
@@ -43,6 +43,13 @@ class ApplicationSettings(BaseSettings):
             return [origin.strip() for origin in self.BACKEND_CORS_ORIGINS.split(",")]
         return self.BACKEND_CORS_ORIGINS
 
+class ProjectSettings(BaseSettings):
+    """项目基础配置"""
+
+    # 项目信息
+    UI_UIAUTOMATION_DIR: str = f"/Users/fairy/Desktop/Project/UI_AUTO_PW"
+
+
 class DatabaseSettings(BaseSettings):
     """数据库配置"""
 
@@ -51,10 +58,10 @@ class DatabaseSettings(BaseSettings):
 
     # MySQL数据库配置（作为备选）
     MYSQL_HOST: str = "localhost"
-    MYSQL_PORT: int = 3306
-    MYSQL_USER: str = "root"
-    MYSQL_PASSWORD: str = "mysql"
-    MYSQL_DATABASE: str = "automation_db"
+    MYSQL_PORT: int = 5432
+    MYSQL_USER: str = "postgres"
+    MYSQL_PASSWORD: str = "postgres"
+    MYSQL_DATABASE: str = "platformdemo"
 
     @property
     def database_url(self) -> str:
@@ -63,7 +70,7 @@ class DatabaseSettings(BaseSettings):
             return self.DATABASE_URL
         # 如果没有DATABASE_URL，则使用MySQL配置构建
         return f"mysql+aiomysql://{self.MYSQL_USER}:{self.MYSQL_PASSWORD}@{self.MYSQL_HOST}:{self.MYSQL_PORT}/{self.MYSQL_DATABASE}"
-
+        # return f"postgresql+asyncpg://postgres:postgres@localhost:5432/platformdemo"
     @property
     def mysql_database_url(self) -> str:
         """获取MySQL数据库连接URL（兼容性保留）"""
@@ -96,17 +103,17 @@ class AIModelSettings(BaseSettings):
     """AI模型配置"""
 
     # DeepSeek配置
-    DEEPSEEK_API_KEY: str = ""
+    DEEPSEEK_API_KEY: str = "sk-f8094a8d997c489686c636082d877aa4"
     DEEPSEEK_BASE_URL: str = "https://api.deepseek.com/v1"
     DEEPSEEK_MODEL: str = "deepseek-chat"
 
     # Qwen-VL配置
-    QWEN_VL_API_KEY: str = ""
+    QWEN_VL_API_KEY: str = "sk-298d078bf69e4662b24f8c0e124d0470"
     QWEN_VL_BASE_URL: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     QWEN_VL_MODEL: str = "qwen-vl-max-latest"
 
     # UI-TARS配置
-    UI_TARS_API_KEY: str = ""
+    UI_TARS_API_KEY: str = "627358ce-bcdc-4a38-9ff4-04f8fa78e213"
     UI_TARS_BASE_URL: str = "https://ark.cn-beijing.volces.com/api/v3"
     UI_TARS_MODEL: str = "doubao-1-5-ui-tars-250428"
     UI_TARS_ENDPOINT_URL: str = ""
@@ -159,7 +166,7 @@ class AutomationSettings(BaseSettings):
     # MidScene.js配置
     MIDSCENE_SERVICE_URL: str = "http://localhost:3002"
     MIDSCENE_TIMEOUT: int = 300  # 5分钟
-    MIDSCENE_SCRIPT_PATH: str = r"C:\Users\86134\Desktop\workspace\playwright-workspace"
+    MIDSCENE_SCRIPT_PATH: str = "tests"
 
     # Playwright配置
     PLAYWRIGHT_HEADLESS: bool = True
@@ -209,7 +216,8 @@ class Settings(
     AutomationSettings,
     LoggingSettings,
     MonitoringSettings,
-    FeatureSettings
+    FeatureSettings,
+    ProjectSettings
 ):
     """统一配置类 - 继承所有配置模块"""
 

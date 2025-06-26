@@ -14,7 +14,7 @@ class Project(BaseModel):
     # 基本信息
     name = Column(String(255), nullable=False)
     description = Column(Text)
-    status = Column(Enum('active', 'inactive', 'archived'), default='active')
+    status = Column(Enum('active', 'inactive', 'archived', name='project_status_enum'), default='active')
     created_by = Column(String(100))
     
     # 关系

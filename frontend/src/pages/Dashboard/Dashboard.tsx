@@ -99,7 +99,7 @@ const Dashboard: React.FC = () => {
               <Col span={16}>
                 <Title className="welcome-title">
                   <RocketOutlined style={{ marginRight: 12 }} />
-                  但问智能自动化测试平台（100%自研）
+                  AI自动化测试平台
                 </Title>
                 <Paragraph className="welcome-subtitle">
                   基于多模态AI与多智能体协作的下一代智能自动化测试系统

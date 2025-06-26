@@ -37,8 +37,10 @@ class PlaywrightExecutorAgent(BaseAgent):
             **kwargs
         )
         self.execution_records: Dict[str, Dict[str, Any]] = {}
-        # 固定的执行环境路径
-        self.playwright_workspace = Path(r"C:\Users\86134\Desktop\workspace\playwright-workspace")
+        # 固定的执行环境路径 - 使用项目根目录的tests目录
+        import os
+        project_root = Path(os.getcwd()).parent if Path(os.getcwd()).name == 'backend' else Path(os.getcwd())
+        self.playwright_workspace = project_root / "tests"
 
         logger.info(f"Playwright执行智能体初始化完成: {self.agent_name}")
         logger.info(f"执行环境路径: {self.playwright_workspace}")
