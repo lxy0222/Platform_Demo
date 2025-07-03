@@ -33,6 +33,7 @@ import {
   InfoCircleOutlined
 } from '@ant-design/icons';
 import { toast } from 'react-hot-toast';
+import ScrollableContainer from '../../../../components/ScrollableContainer';
 
 import {
   createUnifiedExecutionSSE,
@@ -421,7 +422,11 @@ const UnifiedExecutionStatusPanel: React.FC<UnifiedExecutionStatusPanelProps> = 
         )}
 
         {/* 消息列表 */}
-        <div style={{ flex: 1, overflow: 'auto', padding: '12px 16px' }}>
+        <ScrollableContainer
+          maxHeight={500}
+          className="message-list"
+          autoScroll={true}
+        >
           {loading ? (
             <div style={{ textAlign: 'center', padding: 20 }}>
               <Spin tip="加载中..." />
@@ -452,8 +457,8 @@ const UnifiedExecutionStatusPanel: React.FC<UnifiedExecutionStatusPanelProps> = 
                         {new Date(message.timestamp).toLocaleTimeString()}
                       </Text>
                     </div>
-                    <div style={{ 
-                      fontSize: 13, 
+                    <div style={{
+                      fontSize: 13,
                       lineHeight: 1.4,
                       color: message.type === 'error' ? '#ff4d4f' : undefined,
                       fontWeight: message.is_final ? 'bold' : 'normal'
@@ -471,7 +476,7 @@ const UnifiedExecutionStatusPanel: React.FC<UnifiedExecutionStatusPanelProps> = 
             />
           )}
           <div ref={messagesEndRef} />
-        </div>
+        </ScrollableContainer>
 
         {/* 连接状态提示 */}
         {connectionStatus === 'error' && (

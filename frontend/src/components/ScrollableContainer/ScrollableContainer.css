@@ -1,0 +1,47 @@
+/* 可滚动容器样式 */
+.scrollable-container {
+  /* 自定义滚动条样式 */
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Firefox 滚动条样式 */
+.scrollable-container {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+/* 滚动容器变体 */
+.scrollable-container.execution-logs {
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: #fafafa;
+}
+
+.scrollable-container.message-list {
+  padding: 12px 16px;
+  background-color: #ffffff;
+}
+
+.scrollable-container.streaming-content {
+  padding-right: 8px;
+  background-color: transparent;
+}

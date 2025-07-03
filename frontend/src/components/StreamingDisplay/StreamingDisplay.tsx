@@ -27,6 +27,7 @@ import {
 import { ThoughtChain } from '@ant-design/x';
 import ReactMarkdown from 'react-markdown';
 import './StreamingDisplay.css';
+import ScrollableContainer from '../ScrollableContainer';
 
 const { Title, Text, Paragraph } = Typography;
 const { Panel } = Collapse;
@@ -761,7 +762,11 @@ const StreamingDisplay: React.FC<StreamingDisplayProps> = ({
           )}
 
           {/* 思考链和流式内容显示 */}
-          <div className="messages-container" style={{ flex: 1, overflowY: 'auto', paddingRight: '8px' }}>
+          <ScrollableContainer
+            maxHeight={600}
+            className="streaming-content"
+            autoScroll={true}
+          >
             {/* 调试信息 */}
             <div style={{ fontSize: '12px', color: '#999', marginBottom: '8px' }}>
               消息数: {messages.length} | 连接状态: {connectionStatus}
@@ -951,7 +956,7 @@ const StreamingDisplay: React.FC<StreamingDisplayProps> = ({
               </>
             )}
             <div ref={messagesEndRef} />
-          </div>
+          </ScrollableContainer>
 
           {/* 连接状态提示 */}
           {connectionStatus === 'error' && (

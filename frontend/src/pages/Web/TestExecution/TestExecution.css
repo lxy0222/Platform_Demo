@@ -127,12 +127,37 @@
 
 /* 实时消息流样式 */
 .execution-messages {
-  max-height: 300px;
+  max-height: 400px;
   overflow-y: auto;
+  overflow-x: hidden;
   border: 1px solid #f0f0f0;
   border-radius: 4px;
   padding: 8px;
   background-color: #fafafa;
+  scroll-behavior: smooth;
+}
+
+/* 自定义滚动条样式 */
+.execution-messages::-webkit-scrollbar,
+.messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.execution-messages::-webkit-scrollbar-track,
+.messages-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.execution-messages::-webkit-scrollbar-thumb,
+.messages-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.execution-messages::-webkit-scrollbar-thumb:hover,
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
 
 .execution-message {

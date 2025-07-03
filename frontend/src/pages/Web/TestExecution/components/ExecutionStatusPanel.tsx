@@ -34,6 +34,7 @@ import {
 } from '@ant-design/icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
+import ScrollableContainer from '../../../../components/ScrollableContainer';
 
 import {
   createScriptExecutionSSE,
@@ -462,15 +463,10 @@ const ExecutionStatusPanel: React.FC<ExecutionStatusPanelProps> = ({
           </Space>
         }
       >
-        <div 
-          style={{ 
-            height: 300, 
-            overflowY: 'auto',
-            border: '1px solid #f0f0f0',
-            borderRadius: 4,
-            padding: 8,
-            backgroundColor: '#fafafa'
-          }}
+        <ScrollableContainer
+          height={400}
+          className="execution-logs"
+          autoScroll={true}
         >
           <AnimatePresence>
             {messages.map((msg, index) => (
@@ -482,7 +478,7 @@ const ExecutionStatusPanel: React.FC<ExecutionStatusPanelProps> = ({
                 transition={{ duration: 0.2 }}
                 style={{ marginBottom: 8 }}
               >
-                <div style={{ 
+                <div style={{
                   padding: '6px 8px',
                   backgroundColor: 'white',
                   borderRadius: 4,
@@ -503,7 +499,7 @@ const ExecutionStatusPanel: React.FC<ExecutionStatusPanelProps> = ({
             ))}
           </AnimatePresence>
           <div ref={messagesEndRef} />
-        </div>
+        </ScrollableContainer>
       </Card>
 
       {/* 报告列表 */}
