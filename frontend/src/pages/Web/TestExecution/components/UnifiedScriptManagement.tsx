@@ -404,6 +404,15 @@ const UnifiedScriptManagement: React.FC<UnifiedScriptManagementProps> = ({
       if (executionStatus?.sessionId) {
         setActiveMonitors(prev => {
           const newMap = new Map(prev);
+          const monitor = newMap.get(executionStatus.sessionId);
+          if (monitor) {
+            console.log(`停止监控器: ${executionStatus.sessionId}`);
+            try {
+              monitor.stop(); // 关闭SSE连接
+            } catch (error) {
+              console.error(`停止监控器失败: ${executionStatus.sessionId}`, error);
+            }
+          }
           newMap.delete(executionStatus.sessionId);
           return newMap;
         });
@@ -432,6 +441,15 @@ const UnifiedScriptManagement: React.FC<UnifiedScriptManagementProps> = ({
       if (executionStatus?.sessionId) {
         setActiveMonitors(prev => {
           const newMap = new Map(prev);
+          const monitor = newMap.get(executionStatus.sessionId);
+          if (monitor) {
+            console.log(`停止监控器: ${executionStatus.sessionId}`);
+            try {
+              monitor.stop(); // 关闭SSE连接
+            } catch (error) {
+              console.error(`停止监控器失败: ${executionStatus.sessionId}`, error);
+            }
+          }
           newMap.delete(executionStatus.sessionId);
           return newMap;
         });

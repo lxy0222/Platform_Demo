@@ -46,8 +46,34 @@ class ApplicationSettings(BaseSettings):
 class ProjectSettings(BaseSettings):
     """项目基础配置"""
 
-    # 项目信息
-    UI_UIAUTOMATION_DIR: str = f"/Users/fairy/Desktop/Project/UI_AUTO_PW"
+    # 项目信息 - 使用当前项目的tests目录
+    @property
+    def UI_UIAUTOMATION_DIR(self) -> str:
+        """获取UI自动化测试目录路径"""
+        import os
+        from pathlib import Path
+
+        # 获取当前文件的路径，然后向上查找项目根目录
+        current_file = Path(__file__)  # backend/app/core/config.py
+
+        # 从当前文件向上查找，直到找到包含backend目录的项目根目录
+        project_root = current_file.parent.parent.parent.parent  # 向上4级: core -> app -> backend -> 项目根目录
+
+        # 确保找到的是正确的项目根目录（应该包含backend和tests目录）
+        if not (project_root / "backend").exists() or not (project_root / "tests").exists():
+            # 如果没找到，尝试其他方法
+            current_dir = Path(os.getcwd())
+            while current_dir.parent != current_dir:  # 避免无限循环
+                if (current_dir / "backend").exists() and (current_dir / "tests").exists():
+                    project_root = current_dir
+                    break
+                current_dir = current_dir.parent
+            else:
+                # 最后的备选方案：使用固定路径
+                project_root = Path("/Users/fairy/Desktop/Project/Platform_Demo")
+
+        # 返回项目根目录下的tests目录
+        return str(project_root / "tests")
 
 
 class DatabaseSettings(BaseSettings):
@@ -103,7 +129,7 @@ class AIModelSettings(BaseSettings):
     """AI模型配置"""
 
     # DeepSeek配置
-    DEEPSEEK_API_KEY: str = "sk-f8094a8d997c489686c636082d877aa4"
+    DEEPSEEK_API_KEY: str = "sk-3741f228c58f456e9aaa0b369c5266b8"
     DEEPSEEK_BASE_URL: str = "https://api.deepseek.com/v1"
     DEEPSEEK_MODEL: str = "deepseek-chat"
 
@@ -133,7 +159,7 @@ class AIModelSettings(BaseSettings):
         }
 
     # 默认多模态模型选择策略
-    DEFAULT_MULTIMODAL_MODEL: str = "uitars"
+    DEFAULT_MULTIMODAL_MODEL: str = "qwen_vl"
 class FileStorageSettings(BaseSettings):
     """文件存储配置"""
 
@@ -166,7 +192,9 @@ class AutomationSettings(BaseSettings):
     # MidScene.js配置
     MIDSCENE_SERVICE_URL: str = "http://localhost:3002"
     MIDSCENE_TIMEOUT: int = 300  # 5分钟
-    MIDSCENE_SCRIPT_PATH: str = "tests"
+    MIDSCENE_SCRIPT_PATH: str = ""  # 空字符串，因为UI_UIAUTOMATION_DIR已经指向tests目录
+    MIDSCENE_MODEL_NAME: Optional[str] = None  # MidScene.js使用的模型名称
+    MIDSCENE_USE_QWEN_VL: Optional[str] = None  # 是否使用Qwen-VL模型
 
     # Playwright配置
     PLAYWRIGHT_HEADLESS: bool = True

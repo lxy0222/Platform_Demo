@@ -1,0 +1,16 @@
+{
+  "name": "platform-demo-ui-tests",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "cd e2e && npm run test",
+    "test:headed": "cd e2e && npm run test:headed",
+    "test:debug": "cd e2e && npm run test:debug",
+    "install:e2e": "cd e2e && npm install"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@midscene/web": "latest",
+    "typescript": "^5.0.0"
+  }
+}

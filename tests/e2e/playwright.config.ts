@@ -1,16 +1,15 @@
-// playwright.config.ts
-import type { PlaywrightTestConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
-const config: PlaywrightTestConfig = {
-  testDir: './tests',
-  timeout: 60 * 1000,
+export default defineConfig({
+  testDir: './',
+  timeout: 90 * 1000,
   retries: 2,
   workers: 1,
   reporter: [["list"], ["@midscene/web/playwright-reporter", { type: "merged" }]],
 
   use: {
-    headless: false, // 调试时可设为false
-    viewport: { width: 1280, height: 720 },
+    headless: false,
+    viewport: { width: 1280, height: 960 },
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -20,17 +19,7 @@ const config: PlaywrightTestConfig = {
   projects: [
     {
       name: 'chromium',
-      use: { browserName: 'chromium' },
-    },
-    {
-      name: 'firefox',
-      use: { browserName: 'firefox' },
-    },
-    {
-      name: 'webkit',
-      use: { browserName: 'webkit' },
+      use: { ...devices['Desktop Chrome'] },
     },
   ],
-};
-
-export default config;
+});

@@ -303,8 +303,8 @@ async def web_event_generator(session_id: str, request: Request):
                 # 记录队列状态
                 logger.debug(f"尝试从队列获取消息，队列ID: {id(message_queue)}, 队列大小: {message_queue.qsize()}")
 
-                # 使用较短的超时时间，确保更频繁地检查连接状态
-                message = await asyncio.wait_for(message_queue.get(), timeout=0.5)
+                # 使用适中的超时时间，减少ping消息频率
+                message = await asyncio.wait_for(message_queue.get(), timeout=5.0)
 
                 logger.debug(f"成功从队列获取消息: {message.type} - {message.content[:50]}...")
                 
@@ -328,10 +328,12 @@ async def web_event_generator(session_id: str, request: Request):
                 yield f"event: {event_type}\nid: {message_id}\ndata: {message_json}\n\n"
                 message_id += 1
                 
-                # 如果是最终消息，可以选择是否结束流
+                # 如果是最终消息，发送后等待一小段时间然后结束连接
                 if message.is_final and event_type == "final_result":
-                    logger.info(f"收到最终结果，继续保持连接: {session_id}")
-                    # 不立即结束，让前端决定何时断开
+                    logger.info(f"收到最终结果，准备结束连接: {session_id}")
+                    # 等待一小段时间确保前端收到消息，然后结束连接
+                    await asyncio.sleep(2)
+                    break
                 
             except asyncio.TimeoutError:
                 # 发送保持连接的消息

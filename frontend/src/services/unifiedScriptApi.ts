@@ -139,14 +139,11 @@ export const createUnifiedExecutionSSE = (
     eventSource.onopen = onOpen;
   }
 
-  if (onMessage) {
-    eventSource.onmessage = onMessage;
-  }
-
   if (onError) {
     eventSource.onerror = onError;
   }
 
+  // 不使用默认的onmessage，只使用addEventListener来避免重复处理
   // 监听特定事件类型
   eventSource.addEventListener('session', (event) => {
     console.log('会话事件:', event.data);
@@ -154,6 +151,30 @@ export const createUnifiedExecutionSSE = (
   });
 
   eventSource.addEventListener('message', (event) => {
+    // 检查是否是ping消息（有时ping消息会被错误地分类为message）
+    try {
+      // 处理可能的SSE格式数据
+      let jsonData = event.data;
+
+      // 检查是否是SSE格式的数据
+      if (typeof jsonData === 'string' && jsonData.includes('data: ')) {
+        const lines = jsonData.split('\n');
+        const dataLine = lines.find(line => line.startsWith('data: '));
+        if (dataLine) {
+          jsonData = dataLine.substring(6);
+        }
+      }
+
+      const data = JSON.parse(jsonData);
+      if (data.timestamp && Object.keys(data).length === 1) {
+        // 这很可能是ping消息，跳过处理
+        console.debug('跳过可能的ping消息:', event.data);
+        return;
+      }
+    } catch (e) {
+      // 如果解析失败，继续正常处理
+    }
+
     console.log('消息事件:', event.data);
     if (onMessage) onMessage(event);
   });
@@ -174,7 +195,7 @@ export const createUnifiedExecutionSSE = (
   });
 
   eventSource.addEventListener('ping', (event) => {
-    // 心跳消息，保持连接
+    // 心跳消息，保持连接，不需要传递给onMessage
     console.debug('心跳:', event.data);
   });
 
@@ -284,7 +305,31 @@ export class UnifiedExecutionMonitor {
       this.sessionId,
       (event) => {
         try {
-          const data = JSON.parse(event.data);
+          // 处理可能的SSE格式数据
+          let jsonData = event.data;
+
+          // 检查是否是SSE格式的数据（某些浏览器可能会这样）
+          if (typeof jsonData === 'string' && jsonData.includes('data: ')) {
+            // 提取data:后面的JSON内容
+            const lines = jsonData.split('\n');
+            const dataLine = lines.find(line => line.startsWith('data: '));
+            if (dataLine) {
+              jsonData = dataLine.substring(6); // 移除"data: "前缀
+              console.log('提取的JSON数据:', jsonData);
+            } else {
+              console.warn('未找到data:行，原始数据:', jsonData);
+              return;
+            }
+          }
+
+          const data = JSON.parse(jsonData);
+
+          // 跳过ping消息（检查数据内容和事件类型）
+          if (event.type === 'ping' || (data.timestamp && Object.keys(data).length === 1)) {
+            console.debug('监控器收到心跳消息，跳过处理');
+            return;
+          }
+
           console.log('监控器收到消息:', event.type, data);
 
           // 处理消息
@@ -304,10 +349,16 @@ export class UnifiedExecutionMonitor {
           if ((event.type === 'final_result' || data.type === 'final_result' || data.is_final) && this.onCompleteCallback) {
             console.log('检测到执行完成，触发完成回调');
             this.onCompleteCallback();
+
+            // 延迟关闭连接，确保所有处理完成
+            setTimeout(() => {
+              console.log('执行完成，主动关闭SSE连接');
+              this.stop();
+            }, 1000);
           }
 
         } catch (error) {
-          console.error('解析SSE消息失败:', error, event.data);
+          console.error('解析SSE消息失败:', error, 'event.type:', event.type, 'event.data:', event.data);
           // 解析失败时不要触发错误回调，只记录日志
           // 避免将正常的SSE消息当作错误处理
         }

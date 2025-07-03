@@ -457,8 +457,13 @@ const items = await aiQuery("获取商品列表");
             from app.core.config import settings
 
             # 创建输出目录 - 直接指向项目根目录/tests/e2e
-            e2e_dir = Path(settings.UI_UIAUTOMATION_DIR) / settings.MIDSCENE_SCRIPT_PATH / "e2e"
+            if settings.MIDSCENE_SCRIPT_PATH:
+                e2e_dir = Path(settings.UI_UIAUTOMATION_DIR) / settings.MIDSCENE_SCRIPT_PATH / "e2e"
+            else:
+                e2e_dir = Path(settings.UI_UIAUTOMATION_DIR) / "e2e"
             e2e_dir.mkdir(parents=True, exist_ok=True)
+
+            logger.info(f"Playwright脚本保存目录: {e2e_dir}")
 
             # 生成时间戳
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

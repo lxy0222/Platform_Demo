@@ -37,13 +37,71 @@ class PlaywrightExecutorAgent(BaseAgent):
             **kwargs
         )
         self.execution_records: Dict[str, Dict[str, Any]] = {}
-        # 固定的执行环境路径 - 使用项目根目录的tests目录
-        import os
-        project_root = Path(os.getcwd()).parent if Path(os.getcwd()).name == 'backend' else Path(os.getcwd())
-        self.playwright_workspace = project_root / "tests"
+        # 使用配置中的UI自动化测试目录路径
+        from app.core.config import get_settings
+        settings = get_settings()
+        self.playwright_workspace = Path(settings.UI_UIAUTOMATION_DIR)
 
         logger.info(f"Playwright执行智能体初始化完成: {self.agent_name}")
         logger.info(f"执行环境路径: {self.playwright_workspace}")
+
+        # 缓存AI模型配置
+        self.ai_model_env_vars = self._get_ai_model_env_vars()
+        logger.info(f"AI模型配置已加载: {list(self.ai_model_env_vars.keys())}")
+
+    def _get_ai_model_env_vars(self) -> Dict[str, str]:
+        """获取AI模型配置的环境变量"""
+        from app.core.config import get_settings
+        settings = get_settings()
+
+        env_vars = {}
+
+        # 根据配置的默认多模态模型选择相应的API配置
+        default_model = settings.DEFAULT_MULTIMODAL_MODEL.lower()
+
+        if default_model == "qwen_vl" or default_model == "qwen-vl":
+            # 使用Qwen-VL配置
+            env_vars.update({
+                "OPENAI_API_KEY": settings.QWEN_VL_API_KEY,
+                "OPENAI_BASE_URL": settings.QWEN_VL_BASE_URL,
+                "MIDSCENE_MODEL_NAME": "qwen-vl-max-latest",
+                "MIDSCENE_USE_QWEN_VL": "1"
+            })
+        elif default_model == "deepseek":
+            # 使用DeepSeek配置
+            env_vars.update({
+                "OPENAI_API_KEY": settings.DEEPSEEK_API_KEY,
+                "OPENAI_BASE_URL": settings.DEEPSEEK_BASE_URL,
+                "MIDSCENE_MODEL_NAME": settings.DEEPSEEK_MODEL
+            })
+        elif default_model == "uitars":
+            # 使用UI-TARS配置
+            env_vars.update({
+                "OPENAI_API_KEY": settings.UI_TARS_API_KEY,
+                "OPENAI_BASE_URL": settings.UI_TARS_BASE_URL,
+                "MIDSCENE_MODEL_NAME": settings.UI_TARS_MODEL
+            })
+        else:
+            # 默认使用OpenAI配置（如果有的话）
+            if settings.OPENAI_API_KEY:
+                env_vars.update({
+                    "OPENAI_API_KEY": settings.OPENAI_API_KEY,
+                    "OPENAI_BASE_URL": settings.OPENAI_BASE_URL
+                })
+
+        # 过滤掉空值
+        env_vars = {k: v for k, v in env_vars.items() if v}
+
+        logger.info(f"默认多模态模型: {default_model}")
+        logger.info(f"AI模型环境变量配置: {list(env_vars.keys())}")
+        if env_vars:
+            logger.info(f"OPENAI_API_KEY: {'已设置' if env_vars.get('OPENAI_API_KEY') else '未设置'}")
+            logger.info(f"OPENAI_BASE_URL: {env_vars.get('OPENAI_BASE_URL', '未设置')}")
+            logger.info(f"MIDSCENE_MODEL_NAME: {env_vars.get('MIDSCENE_MODEL_NAME', '未设置')}")
+        else:
+            logger.warning("没有找到有效的AI模型配置!")
+
+        return env_vars
 
     def _validate_workspace(self) -> bool:
         """验证Playwright工作空间是否存在且配置正确"""
@@ -52,10 +110,12 @@ class PlaywrightExecutorAgent(BaseAgent):
                 logger.error(f"Playwright工作空间不存在: {self.playwright_workspace}")
                 return False
 
-            # 检查package.json是否存在
+            # 检查package.json是否存在（在根目录或e2e目录）
             package_json = self.playwright_workspace / "package.json"
-            if not package_json.exists():
-                logger.error(f"package.json不存在: {package_json}")
+            e2e_package_json = self.playwright_workspace / "e2e" / "package.json"
+
+            if not package_json.exists() and not e2e_package_json.exists():
+                logger.error(f"package.json不存在，检查路径: {package_json} 或 {e2e_package_json}")
                 return False
 
             # 检查e2e目录是否存在
@@ -63,6 +123,11 @@ class PlaywrightExecutorAgent(BaseAgent):
             if not e2e_dir.exists():
                 logger.warning(f"e2e目录不存在，将自动创建: {e2e_dir}")
                 e2e_dir.mkdir(exist_ok=True)
+
+            # 如果e2e目录存在package.json，确保根目录也有
+            if e2e_package_json.exists() and not package_json.exists():
+                logger.info(f"在根目录创建package.json: {package_json}")
+                # 这里可以创建一个简单的package.json或复制e2e的
 
             logger.info("Playwright工作空间验证通过")
             return True
@@ -281,8 +346,22 @@ test("AI自动化测试", async ({{
             record["logs"].append("开始执行Playwright测试...")
             await self.send_response("🎭 开始执行Playwright测试...")
 
-            # 构建测试命令 - 使用相对路径，在Windows上转换路径分隔符
-            relative_test_path = test_file_path.relative_to(self.playwright_workspace)
+            # 确定工作目录和测试命令
+            # 如果测试文件在e2e目录中，则在e2e目录中执行
+            if "e2e" in test_file_path.parts:
+                e2e_dir = self.playwright_workspace / "e2e"
+                if e2e_dir.exists() and (e2e_dir / "package.json").exists():
+                    # 在e2e目录中执行
+                    work_dir = e2e_dir
+                    relative_test_path = test_file_path.relative_to(e2e_dir)
+                else:
+                    # 回退到根目录
+                    work_dir = self.playwright_workspace
+                    relative_test_path = test_file_path.relative_to(self.playwright_workspace)
+            else:
+                work_dir = self.playwright_workspace
+                relative_test_path = test_file_path.relative_to(self.playwright_workspace)
+
             # 在Windows上将反斜杠转换为正斜杠，因为npx playwright期望正斜杠
             import platform
             if platform.system() == "Windows":
@@ -293,11 +372,16 @@ test("AI自动化测试", async ({{
 
             # 设置环境变量
             env = os.environ.copy()
+
+            # 自动添加AI模型配置到环境变量
+            env.update(self.ai_model_env_vars)
+
+            # 添加用户自定义的环境变量
             if hasattr(record["config"], "environment_variables") and record["config"].environment_variables:
                 env.update(record["config"].environment_variables)
 
             logger.info(f"执行命令: {' '.join(command)}")
-            logger.info(f"工作目录: {self.playwright_workspace}")
+            logger.info(f"工作目录: {work_dir}")
 
             # 在Windows上使用同步subprocess避免NotImplementedError
             import platform
@@ -315,7 +399,7 @@ test("AI自动化测试", async ({{
 
                     result = subprocess.run(
                         command_str,
-                        cwd=self.playwright_workspace,
+                        cwd=work_dir,
                         capture_output=True,
                         text=True,
                         env=env_with_utf8,
@@ -351,7 +435,7 @@ test("AI自动化测试", async ({{
                     try:
                         result = subprocess.run(
                             command_str,
-                            cwd=self.playwright_workspace,
+                            cwd=work_dir,
                             capture_output=True,
                             text=False,  # 使用字节模式
                             env=env_with_utf8,
@@ -388,7 +472,7 @@ test("AI自动化测试", async ({{
                 # 非Windows系统使用异步subprocess
                 process = await asyncio.create_subprocess_exec(
                     *command,
-                    cwd=self.playwright_workspace,
+                    cwd=work_dir,
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE,
                     env=env
@@ -430,7 +514,8 @@ test("AI自动化测试", async ({{
                 "stderr": stderr_lines,
                 "duration": duration,
                 "start_time": start_time.isoformat(),
-                "end_time": end_time.isoformat()
+                "end_time": end_time.isoformat(),
+                "work_dir": str(work_dir)
             }
 
         except Exception as e:
@@ -452,7 +537,8 @@ test("AI自动化测试", async ({{
             }
 
             # 提取报告路径
-            report_path = self._extract_report_path(execution_result["stdout"])
+            work_dir = Path(execution_result.get("work_dir", self.playwright_workspace))
+            report_path = self._extract_report_path(execution_result["stdout"], work_dir)
             if report_path:
                 result["report_path"] = report_path
                 logger.info(f"找到测试报告: {report_path}")
@@ -485,9 +571,12 @@ test("AI自动化测试", async ({{
                 "error_message": str(e)
             }
 
-    def _extract_report_path(self, stdout_lines: List[str]) -> Optional[str]:
+    def _extract_report_path(self, stdout_lines: List[str], work_dir: Path = None) -> Optional[str]:
         """从stdout中提取报告文件路径"""
         try:
+            if work_dir is None:
+                work_dir = self.playwright_workspace
+
             for line in stdout_lines:
                 # 查找 "Midscene - report file updated: ./current_cwd/midscene_run/report/some_id.html"
                 if "Midscene - report file updated:" in line:
@@ -499,7 +588,7 @@ test("AI自动化测试", async ({{
                         if not os.path.isabs(report_path):
                             if report_path.startswith('./'):
                                 report_path = report_path[2:]  # 移除 './'
-                            report_path = self.playwright_workspace / report_path
+                            report_path = work_dir / report_path
 
                         logger.info(f"提取到报告路径: {report_path}")
                         return str(report_path)

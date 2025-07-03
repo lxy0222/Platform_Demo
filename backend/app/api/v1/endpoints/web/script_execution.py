@@ -43,7 +43,7 @@ script_statuses: Dict[str, Dict[str, ScriptExecutionStatus]] = {}
 SESSION_TIMEOUT = 3600  # 1小时
 
 # Playwright工作空间路径
-PLAYWRIGHT_WORKSPACE = Path(settings.UI_UIAUTOMATION_DIR+"/tests")
+PLAYWRIGHT_WORKSPACE = Path(settings.UI_UIAUTOMATION_DIR)
 
 # 统一执行请求和响应模型
 class UnifiedScriptExecutionRequest(BaseModel):
@@ -116,9 +116,25 @@ async def resolve_script_by_id(script_id: str) -> Dict[str, Any]:
                 else:
                     script_path = PLAYWRIGHT_WORKSPACE / "e2e" / f"{db_script.name}.yaml"
 
-            # 验证文件是否存在
+            # 如果文件仍然不存在，尝试从数据库内容创建临时文件
             if not script_path.exists():
-                raise FileNotFoundError(f"脚本文件不存在: {script_path}")
+                logger.warning(f"脚本文件不存在: {script_path}，尝试从数据库内容创建临时文件")
+
+                if db_script.content:
+                    # 确保e2e目录存在
+                    e2e_dir = PLAYWRIGHT_WORKSPACE / "e2e"
+                    e2e_dir.mkdir(parents=True, exist_ok=True)
+
+                    # 创建临时脚本文件
+                    try:
+                        with open(script_path, 'w', encoding='utf-8') as f:
+                            f.write(db_script.content)
+                        logger.info(f"从数据库内容创建脚本文件: {script_path}")
+                    except Exception as write_error:
+                        logger.error(f"创建脚本文件失败: {write_error}")
+                        raise FileNotFoundError(f"脚本文件不存在且无法创建: {script_path}")
+                else:
+                    raise FileNotFoundError(f"脚本文件不存在且数据库中无内容: {script_path}")
 
             return {
                 "script_id": script_id,
@@ -627,8 +643,8 @@ async def script_event_generator(session_id: str, request: Request):
 
             # 尝试从队列获取消息（非阻塞）
             try:
-                # 使用较短的超时时间，确保更频繁地检查连接状态
-                message = await asyncio.wait_for(message_queue.get(), timeout=0.5)
+                # 使用适中的超时时间，减少ping消息频率
+                message = await asyncio.wait_for(message_queue.get(), timeout=5.0)
 
                 logger.debug(f"成功从队列获取消息: {message.type} - {message.content[:50]}...")
 
@@ -648,9 +664,12 @@ async def script_event_generator(session_id: str, request: Request):
                 yield f"event: {event_type}\nid: {message_id}\ndata: {message_json}\n\n"
                 message_id += 1
 
-                # 如果是最终消息，继续保持连接
+                # 如果是最终消息，发送后等待一小段时间然后结束连接
                 if message.is_final and event_type == "final_result":
-                    logger.info(f"收到最终结果，继续保持连接: {session_id}")
+                    logger.info(f"收到最终结果，准备结束连接: {session_id}")
+                    # 等待一小段时间确保前端收到消息，然后结束连接
+                    await asyncio.sleep(2)
+                    break
 
             except asyncio.TimeoutError:
                 # 发送保持连接的消息
@@ -1456,6 +1475,7 @@ async def process_unified_execution_task(session_id: str):
 
         # 更新会话状态
         active_sessions[session_id]["status"] = "completed"
+        active_sessions[session_id]["completed_at"] = datetime.now().isoformat()
 
     except Exception as e:
         logger.error(f"处理统一脚本执行任务失败: {session_id} - {str(e)}")

@@ -104,8 +104,31 @@ const ExecutionStatusPanel: React.FC<ExecutionStatusPanelProps> = ({
       sessionId,
       (event: MessageEvent) => {
         try {
-          const data = JSON.parse(event.data);
-          
+          // 处理可能的SSE格式数据
+          let jsonData = event.data;
+
+          // 检查是否是SSE格式的数据（某些浏览器可能会这样）
+          if (typeof jsonData === 'string' && jsonData.includes('data: ')) {
+            // 提取data:后面的JSON内容
+            const lines = jsonData.split('\n');
+            const dataLine = lines.find(line => line.startsWith('data: '));
+            if (dataLine) {
+              jsonData = dataLine.substring(6); // 移除"data: "前缀
+              console.log('执行状态面板提取的JSON数据:', jsonData);
+            } else {
+              console.warn('执行状态面板未找到data:行，原始数据:', jsonData);
+              return;
+            }
+          }
+
+          const data = JSON.parse(jsonData);
+
+          // 跳过ping消息（检查数据内容和事件类型）
+          if (event.type === 'ping' || (data.timestamp && Object.keys(data).length === 1)) {
+            console.debug('执行状态面板收到心跳消息，跳过处理');
+            return;
+          }
+
           // 处理不同类型的消息
           if (event.type === 'session') {
             setSessionStatus('connected');
@@ -153,9 +176,9 @@ const ExecutionStatusPanel: React.FC<ExecutionStatusPanelProps> = ({
           };
 
           setMessages(prev => [...prev, message]);
-          
+
         } catch (error) {
-          console.error('解析SSE消息失败:', error);
+          console.error('解析SSE消息失败:', error, 'event.type:', event.type, 'event.data:', event.data);
         }
       },
       (error: Event) => {
