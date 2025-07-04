@@ -217,7 +217,7 @@ class TestReportService:
                 from sqlalchemy import select
                 stmt = select(TestReport).filter(
                     TestReport.script_id == script_id
-                ).order_by(desc(TestReport.created_at))
+                ).order_by(desc(TestReport.created_at)).limit(1)
                 result = await session.execute(stmt)
                 return result.scalar_one_or_none()
         except Exception as e:
@@ -290,7 +290,7 @@ class TestReportService:
                 from sqlalchemy import select
                 stmt = select(TestReport).filter(
                     TestReport.script_id == script_id
-                ).order_by(desc(TestReport.created_at))
+                ).order_by(desc(TestReport.created_at)).limit(1)
                 result = await session.execute(stmt)
                 report = result.scalar_one_or_none()
 

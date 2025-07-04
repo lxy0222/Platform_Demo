@@ -76,7 +76,7 @@ async def get_reports_by_session_id(session_id: str):
 
 
 @router.get("/view/{execution_id}")
-async def view_report_html(execution_id: str):
+async def view_report_html(execution_id: str, force: bool = False):
     """查看HTML测试报告"""
     try:
         # 获取报告记录
@@ -94,6 +94,55 @@ async def view_report_html(execution_id: str):
             raise HTTPException(status_code=404, detail=error_msg)
 
         logger.info(f"返回测试报告文件: {report_path}")
+
+        # 检查文件大小
+        file_size = os.path.getsize(report_path)
+        logger.info(f"报告文件大小: {file_size / 1024 / 1024:.2f} MB")
+
+        # 如果文件过大（超过20MB）且未强制查看，返回警告页面
+        if file_size > 20 * 1024 * 1024 and not force:
+            warning_html = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>报告文件过大</title>
+                <meta charset="utf-8">
+                <style>
+                    body {{ font-family: Arial, sans-serif; margin: 40px; text-align: center; }}
+                    .warning {{ color: #ff6b35; font-size: 18px; margin: 20px 0; }}
+                    .info {{ color: #666; margin: 10px 0; }}
+                    .download-btn {{
+                        background: #007bff; color: white; padding: 10px 20px;
+                        text-decoration: none; border-radius: 5px; display: inline-block; margin: 20px;
+                    }}
+                </style>
+            </head>
+            <body>
+                <h1>⚠️ 报告文件过大</h1>
+                <div class="warning">
+                    报告文件大小: {file_size / 1024 / 1024:.2f} MB<br>
+                    文件过大可能导致浏览器卡顿或崩溃
+                </div>
+                <div class="info">
+                    建议下载到本地查看，或者优化测试配置以减少报告大小
+                </div>
+                <a href="/api/v1/web/reports/download/{report_id}" class="download-btn">下载报告文件</a>
+                <br><br>
+                <button onclick="loadReport()" style="background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                    仍要在浏览器中查看
+                </button>
+
+                <script>
+                function loadReport() {{
+                    if (confirm('文件较大，可能导致浏览器卡顿。确定要继续吗？')) {{
+                        window.location.href = '/api/v1/web/reports/view/{report_id}?force=true';
+                    }}
+                }}
+                </script>
+            </body>
+            </html>
+            """
+            return HTMLResponse(content=warning_html, media_type="text/html")
 
         # 读取HTML文件内容并直接返回
         try:
@@ -314,3 +363,38 @@ async def get_report_stats():
     except Exception as e:
         logger.error(f"获取统计信息失败: {str(e)}")
         raise HTTPException(status_code=500, detail=f"获取统计信息失败: {str(e)}")
+
+
+@router.get("/download/{execution_id}")
+async def download_report_file(execution_id: str):
+    """下载测试报告文件"""
+    try:
+        # 获取报告记录
+        report = await test_report_service.get_report_by_execution_id(execution_id)
+        if not report:
+            raise HTTPException(status_code=404, detail=f"未找到执行ID {execution_id} 的测试报告")
+
+        # 获取报告文件路径
+        report_path = await test_report_service.get_report_file_path(execution_id)
+        if not report_path or not os.path.exists(report_path):
+            raise HTTPException(status_code=404, detail="测试报告文件不存在")
+
+        logger.info(f"下载测试报告文件: {report_path}")
+
+        # 生成文件名
+        from datetime import datetime
+        filename = f"test_report_{execution_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
+
+        # 返回文件下载响应
+        from fastapi.responses import FileResponse
+        return FileResponse(
+            path=report_path,
+            filename=filename,
+            media_type="text/html"
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"下载测试报告失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"下载测试报告失败: {str(e)}")

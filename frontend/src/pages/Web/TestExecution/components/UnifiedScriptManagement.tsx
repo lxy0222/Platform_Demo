@@ -186,11 +186,15 @@ const UnifiedScriptManagement: React.FC<UnifiedScriptManagementProps> = ({
 
   // 批量检查脚本报告状态
   const checkScriptsReportStatus = useCallback(async (scripts: Script[]) => {
+    console.log(`开始批量检查 ${scripts.length} 个脚本的报告状态`);
     const reportChecks = scripts.map(async (script) => {
       try {
         const hasReport = await checkScriptReport(script.id);
         if (hasReport) {
+          console.log(`脚本 ${script.name} 有报告，更新状态`);
           updateScriptExecutionStatus(script.id, { hasReport: true });
+        } else {
+          console.log(`脚本 ${script.name} 无报告`);
         }
       } catch (error) {
         // 忽略单个脚本的报告检查错误
@@ -199,6 +203,7 @@ const UnifiedScriptManagement: React.FC<UnifiedScriptManagementProps> = ({
     });
 
     await Promise.allSettled(reportChecks);
+    console.log('批量报告状态检查完成');
   }, []);
 
   // 根据来源加载脚本
@@ -297,9 +302,13 @@ const UnifiedScriptManagement: React.FC<UnifiedScriptManagementProps> = ({
   // 检查脚本是否有可用报告
   const checkScriptReport = async (scriptId: string): Promise<boolean> => {
     try {
+      console.log(`检查脚本 ${scriptId} 的报告状态...`);
       const response = await fetch(`/api/v1/web/reports/script/${scriptId}/latest`);
-      return response.ok;
+      const hasReport = response.ok;
+      console.log(`脚本 ${scriptId} 报告状态: ${hasReport ? '有报告' : '无报告'}`);
+      return hasReport;
     } catch (error) {
+      console.error(`检查脚本 ${scriptId} 报告状态失败:`, error);
       return false;
     }
   };

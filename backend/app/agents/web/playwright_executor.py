@@ -374,11 +374,21 @@ test("AI自动化测试", async ({{
             env = os.environ.copy()
 
             # 自动添加AI模型配置到环境变量
+            logger.info(f"添加AI模型环境变量: {list(self.ai_model_env_vars.keys())}")
             env.update(self.ai_model_env_vars)
 
             # 添加用户自定义的环境变量
             if hasattr(record["config"], "environment_variables") and record["config"].environment_variables:
+                logger.info(f"添加用户自定义环境变量: {list(record['config'].environment_variables.keys())}")
                 env.update(record["config"].environment_variables)
+
+            # 验证关键环境变量是否设置
+            key_env_vars = ["OPENAI_API_KEY", "OPENAI_BASE_URL", "MIDSCENE_MODEL_NAME"]
+            for key in key_env_vars:
+                if key in env:
+                    logger.info(f"环境变量 {key}: {'已设置' if key == 'OPENAI_API_KEY' else env[key]}")
+                else:
+                    logger.warning(f"环境变量 {key}: 未设置")
 
             logger.info(f"执行命令: {' '.join(command)}")
             logger.info(f"工作目录: {work_dir}")
@@ -539,6 +549,12 @@ test("AI自动化测试", async ({{
             # 提取报告路径
             work_dir = Path(execution_result.get("work_dir", self.playwright_workspace))
             report_path = self._extract_report_path(execution_result["stdout"], work_dir)
+
+            # 如果没有从stdout提取到报告路径，尝试查找最新的报告文件
+            if not report_path:
+                logger.info("未从stdout提取到报告路径，尝试查找最新报告文件")
+                report_path = self._find_latest_report_file()
+
             if report_path:
                 result["report_path"] = report_path
                 logger.info(f"找到测试报告: {report_path}")
@@ -599,6 +615,34 @@ test("AI自动化测试", async ({{
             logger.error(f"提取报告路径失败: {str(e)}")
             return None
 
+    def _find_latest_report_file(self) -> Optional[str]:
+        """查找最新的报告文件"""
+        try:
+            # 查找MidScene报告目录
+            midscene_report_dir = self.playwright_workspace / "e2e" / "midscene_run" / "report"
+            if midscene_report_dir.exists():
+                html_files = list(midscene_report_dir.glob("*.html"))
+                if html_files:
+                    # 按修改时间排序，获取最新的文件
+                    latest_file = max(html_files, key=lambda f: f.stat().st_mtime)
+                    logger.info(f"找到最新的MidScene报告文件: {latest_file}")
+                    return str(latest_file)
+
+            # 查找Playwright默认报告目录
+            playwright_report_dir = self.playwright_workspace / "e2e" / "playwright-report"
+            if playwright_report_dir.exists():
+                index_html = playwright_report_dir / "index.html"
+                if index_html.exists():
+                    logger.info(f"找到Playwright报告文件: {index_html}")
+                    return str(index_html)
+
+            logger.warning("未找到任何报告文件")
+            return None
+
+        except Exception as e:
+            logger.error(f"查找最新报告文件失败: {str(e)}")
+            return None
+
     async def _open_report_in_browser(self, report_path: str) -> None:
         """在浏览器中打开报告"""
         try:
@@ -622,9 +666,9 @@ test("AI自动化测试", async ({{
 
             # 查找HTML报告
             report_dirs = [
-                self.playwright_workspace / "playwright-report",
-                self.playwright_workspace / "test-results",
-                self.playwright_workspace / "midscene_run" / "report"
+                self.playwright_workspace / "e2e" / "playwright-report",
+                self.playwright_workspace / "e2e" / "test-results",
+                self.playwright_workspace / "e2e" / "midscene_run" / "report"
             ]
 
             for report_dir in report_dirs:
@@ -851,9 +895,19 @@ def extract_report_path_from_output(stdout_lines):
             record = self.execution_records.get(execution_id, {})
 
             # 提取脚本信息
-            script_id = getattr(message, 'script_id', None) or message.script_name or execution_id
+            script_id = getattr(message, 'script_id', None)
+            if not script_id:
+                # 如果没有script_id，尝试从script_name生成
+                if message.script_name:
+                    # 移除文件扩展名作为script_id
+                    script_id = message.script_name.replace('.spec.ts', '').replace('.spec.js', '')
+                else:
+                    script_id = execution_id
+
             script_name = message.script_name or f"test-{execution_id}"
             session_id = getattr(message, 'session_id', execution_id)
+
+            logger.info(f"保存报告 - script_id: {script_id}, script_name: {script_name}, session_id: {session_id}")
 
             # 解析时间信息
             start_time = None
