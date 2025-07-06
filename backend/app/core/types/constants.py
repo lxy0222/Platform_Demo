@@ -24,6 +24,7 @@ AGENT_NAMES: Dict[str, str] = {
 
     # 生成类智能体
     AgentTypes.TEST_PLANNER.value: "测试规划智能体",
+    AgentTypes.TEST_CASE_GENERATOR.value: "测试用例生成智能体",
     AgentTypes.YAML_GENERATOR.value: "YAML生成智能体",
     AgentTypes.PLAYWRIGHT_GENERATOR.value: "Playwright代码生成智能体",
     AgentTypes.API_TEST_GENERATOR.value: "API测试生成智能体",
@@ -52,6 +53,7 @@ TOPIC_TYPES: Dict[str, str] = {
 
     # 生成类主题
     "test_planner": TopicTypes.TEST_PLANNER.value,
+    "test_case_generator": TopicTypes.TEST_CASE_GENERATOR.value,
     "yaml_generator": TopicTypes.YAML_GENERATOR.value,
     "playwright_generator": TopicTypes.PLAYWRIGHT_GENERATOR.value,
     "api_test_generator": TopicTypes.API_TEST_GENERATOR.value,

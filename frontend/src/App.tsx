@@ -7,10 +7,12 @@ import { Toaster } from 'react-hot-toast';
 import Layout from './components/Layout/Layout';
 import Dashboard from './pages/Dashboard/Dashboard';
 import TestCreation from './pages/Web/TestCreation/TestCreation';
+import TestCaseCreation from './pages/Web/TestCaseCreation/TestCaseCreation';
 import TestExecution from './pages/Web/TestExecution/TestExecution';
 import UnifiedTestExecution from './pages/Web/TestExecution/UnifiedTestExecution';
 import TestResults from './pages/Web/TestResults/TestResults';
 import TestReports from './pages/Web/TestReports/TestReports';
+import PageAnalysis from './pages/Web/PageAnalysis/PageAnalysis';
 import Settings from './pages/Settings/Settings';
 import PlaceholderPage from './components/Common/PlaceholderPage';
 import LoadingSpinner from './components/Common/LoadingSpinner';
@@ -42,6 +44,7 @@ const App: React.FC = () => {
               {/* Web自动化路由 */}
               <Route path="web/page-analysis" element={<PageAnalysis />} />
               <Route path="web/create" element={<TestCreation />} />
+              <Route path="web/test-case-creation" element={<TestCaseCreation />} />
               <Route path="web/execution" element={<UnifiedTestExecution />} />
               <Route path="web/execution/:sessionId" element={<UnifiedTestExecution />} />
               <Route path="web/results" element={<TestResults />} />

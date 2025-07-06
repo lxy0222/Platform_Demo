@@ -263,6 +263,8 @@ interface StreamingDisplayProps {
   onAnalysisComplete?: (result: any) => void;
   onError?: (error: string) => void;
   testMode?: boolean; // 添加测试模式
+  sseEndpoint?: string; // 自定义SSE端点
+  platform?: string; // 平台类型，用于默认端点
 }
 
 const StreamingDisplay: React.FC<StreamingDisplayProps> = ({
@@ -270,7 +272,9 @@ const StreamingDisplay: React.FC<StreamingDisplayProps> = ({
   isActive,
   onAnalysisComplete,
   onError,
-  testMode = false
+  testMode = false,
+  sseEndpoint,
+  platform = 'web'
 }) => {
   const [messages, setMessages] = useState<StreamMessage[]>([]);
   const [isConnected, setIsConnected] = useState(false);
@@ -426,7 +430,16 @@ const StreamingDisplay: React.FC<StreamingDisplayProps> = ({
     }
 
     const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-    const sseUrl = `${baseUrl}/api/v1/web/create/stream/${sessionId}`;
+
+    // 使用自定义SSE端点或默认端点
+    let sseUrl: string;
+    if (sseEndpoint) {
+      // 如果提供了自定义端点，使用它
+      sseUrl = sseEndpoint.startsWith('http') ? sseEndpoint : `${baseUrl}${sseEndpoint}`;
+    } else {
+      // 使用默认端点（向后兼容）
+      sseUrl = `${baseUrl}/api/v1/web/create/stream/${sessionId}`;
+    }
 
     console.log('连接SSE URL:', sseUrl);
 

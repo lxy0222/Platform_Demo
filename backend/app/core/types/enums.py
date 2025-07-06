@@ -36,6 +36,7 @@ class AgentTypes(Enum):
 
     # 生成类智能体
     TEST_PLANNER = "test_planner"                    # 测试规划智能体
+    TEST_CASE_GENERATOR = "test_case_generator"      # 测试用例生成智能体
     YAML_GENERATOR = "yaml_generator"                # YAML生成智能体（MidScene.js）
     PLAYWRIGHT_GENERATOR = "playwright_generator"    # Playwright代码生成智能体
     API_TEST_GENERATOR = "api_test_generator"        # API测试生成智能体
@@ -64,6 +65,7 @@ class TopicTypes(Enum):
 
     # 生成类主题
     TEST_PLANNER = "test_planner"
+    TEST_CASE_GENERATOR = "test_case_generator"
     YAML_GENERATOR = "yaml_generator"
     PLAYWRIGHT_GENERATOR = "playwright_generator"
     API_TEST_GENERATOR = "api_test_generator"

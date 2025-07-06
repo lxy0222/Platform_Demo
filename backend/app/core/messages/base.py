@@ -33,6 +33,7 @@ class StreamMessage(BaseModel):
     region: str = Field(default="process", description="消息区域")
     is_final: bool = Field(default=False, description="是否最终消息")
     result: Optional[Dict[str, Any]] = Field(None, description="结果数据")
+    error: Optional[str] = Field(None, description="错误信息")
     timestamp: datetime = Field(default_factory=datetime.now, description="时间戳")
     message_id: Optional[str] = Field(None, description="消息ID")
     platform: str = Field(default="web", description="平台类型")

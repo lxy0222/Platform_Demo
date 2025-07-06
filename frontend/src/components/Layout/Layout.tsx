@@ -139,6 +139,13 @@ const menuItems: MenuItem[] = [
         type: 'item'
       },
       {
+        key: 'web-test-case-creation',
+        icon: <EditOutlined />,
+        label: '测试用例创建',
+        path: '/web/test-case-creation',
+        type: 'item'
+      },
+      {
         key: 'web-test-execution',
         icon: <PlayCircleOutlined />,
         label: '执行测试',

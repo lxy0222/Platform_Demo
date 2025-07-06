@@ -8,6 +8,9 @@ from .image_analysis import router as image_analysis_router
 # 页面分析API
 from .page_analysis import router as page_analysis_router
 
+# 测试用例创建API
+from .test_case_creation import router as test_case_creation_router
+
 # 脚本管理API
 from .script_management import router as script_management_router
 
@@ -17,6 +20,7 @@ from .script_execution import router as script_execution_router
 __all__ = [
     "image_analysis_router",
     "page_analysis_router",
+    "test_case_creation_router",
     "script_management_router",
     "script_execution_router"
 ]

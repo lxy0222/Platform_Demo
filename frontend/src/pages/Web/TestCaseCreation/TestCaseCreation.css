@@ -1,0 +1,299 @@
+.test-case-creation {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.test-case-creation .main-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.test-case-creation .main-card .ant-card-head {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px 8px 0 0;
+}
+
+.test-case-creation .main-card .ant-card-head-title {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.test-scenarios-section {
+  padding: 16px 0;
+}
+
+.test-scenarios-section .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.test-scenarios-section .section-header h4 {
+  margin: 0;
+  color: #1890ff;
+}
+
+.test-scenarios-section .ant-list-item {
+  padding: 16px;
+  margin-bottom: 12px;
+  background: #fafafa;
+  border-radius: 6px;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s ease;
+}
+
+.test-scenarios-section .ant-list-item:hover {
+  background: #f0f9ff;
+  border-color: #1890ff;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.1);
+}
+
+.test-scenarios-section .ant-list-item-meta-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.test-scenarios-section .ant-list-item-meta-description {
+  color: #666;
+}
+
+.test-scenarios-section .ant-tag {
+  margin-left: 8px;
+}
+
+.test-scenarios-section .ant-list-item-action {
+  margin-left: 16px;
+}
+
+.test-scenarios-section .ant-list-item-action li {
+  padding: 0 4px;
+}
+
+/* 脚本编辑器样式 */
+.test-case-creation .ant-card .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+.test-case-creation .ant-card .ant-tabs-tab {
+  font-weight: 500;
+}
+
+.test-case-creation .ant-card .ant-tabs-tab.ant-tabs-tab-active {
+  color: #1890ff;
+}
+
+/* 按钮组样式 */
+.test-case-creation .ant-space {
+  margin-bottom: 16px;
+}
+
+.test-case-creation .ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.test-case-creation .ant-btn-primary {
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  border: none;
+  box-shadow: 0 2px 4px rgba(24, 144, 255, 0.3);
+}
+
+.test-case-creation .ant-btn-primary:hover {
+  background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+  box-shadow: 0 4px 8px rgba(24, 144, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.test-case-creation .ant-btn-danger {
+  background: linear-gradient(135deg, #ff4d4f 0%, #cf1322 100%);
+  border: none;
+  color: white;
+}
+
+.test-case-creation .ant-btn-danger:hover {
+  background: linear-gradient(135deg, #ff7875 0%, #ff4d4f 100%);
+  transform: translateY(-1px);
+}
+
+/* 表单样式 */
+.test-case-creation .ant-form-item-label > label {
+  font-weight: 500;
+  color: #333;
+}
+
+/* 上传按钮样式 */
+.test-case-creation .ant-upload .ant-btn[disabled] {
+  background: #f5f5f5;
+  border-color: #d9d9d9;
+  color: #999;
+}
+
+/* 说明文字样式 */
+.test-case-creation .ant-form-item-extra {
+  color: #666;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* 提示信息样式 */
+.test-case-creation .ant-alert {
+  border-radius: 6px;
+}
+
+.test-case-creation .ant-alert-info {
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+}
+
+.test-case-creation .ant-alert-info .ant-alert-icon {
+  color: #52c41a;
+}
+
+.test-case-creation .ant-input,
+.test-case-creation .ant-input-number,
+.test-case-creation .ant-select-selector {
+  border-radius: 6px;
+  border: 1px solid #d9d9d9;
+  transition: all 0.3s ease;
+}
+
+.test-case-creation .ant-input:focus,
+.test-case-creation .ant-input-number:focus,
+.test-case-creation .ant-select-focused .ant-select-selector {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.test-case-creation .ant-upload {
+  width: 100%;
+}
+
+.test-case-creation .ant-upload .ant-btn {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 复选框组样式 */
+.test-case-creation .ant-checkbox-group {
+  display: flex;
+  gap: 16px;
+}
+
+.test-case-creation .ant-checkbox-wrapper {
+  font-weight: 500;
+}
+
+/* 标签样式 */
+.test-case-creation .ant-tag {
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* 模态框样式 */
+.test-case-creation .ant-modal-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px 8px 0 0;
+}
+
+.test-case-creation .ant-modal-title {
+  color: white;
+  font-weight: 600;
+}
+
+.test-case-creation .ant-modal-close {
+  color: white;
+}
+
+.test-case-creation .ant-modal-close:hover {
+  color: #f0f0f0;
+}
+
+/* 代码显示样式 */
+.test-case-creation pre {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 16px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-x: auto;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* 空状态样式 */
+.test-case-creation .empty-state {
+  text-align: center;
+  padding: 40px 0;
+  color: #999;
+}
+
+.test-case-creation .empty-state .anticon {
+  font-size: 48px;
+  color: #d9d9d9;
+  margin-bottom: 16px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .test-case-creation {
+    padding: 16px;
+  }
+  
+  .test-scenarios-section .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .test-case-creation .ant-col {
+    margin-bottom: 16px;
+  }
+  
+  .test-case-creation .ant-list-item-action {
+    margin-left: 0;
+    margin-top: 12px;
+  }
+}
+
+/* 动画效果 */
+.test-case-creation .ant-list-item {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.test-case-creation .ant-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.test-case-creation .ant-card {
+  transition: box-shadow 0.3s ease;
+}
+
+.test-case-creation .ant-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}

@@ -22,6 +22,7 @@ from loguru import logger
 
 from app.core.messages.web import (
     WebMultimodalAnalysisRequest, WebMultimodalAnalysisResponse,
+    WebTestCaseGenerationRequest,
     PageAnalysis, UIElement, AnalysisType
 )
 from app.core.agents.base import BaseAgent
@@ -131,6 +132,50 @@ class ImageAnalyzerAgent(BaseAgent):
 
         except Exception as e:
             await self.handle_exception("handle_message", e)
+
+    @message_handler
+    async def handle_test_case_generation_message(self, message: WebTestCaseGenerationRequest, ctx: MessageContext) -> None:
+        """处理测试用例生成请求（来自测试创建页面）- 仅处理图片分析"""
+        try:
+            # 检查是否有图片数据
+            if not message.image_data:
+                await self.send_response(
+                    "❌ 图片分析智能体只处理图片分析请求，请上传图片后重试。",
+                    is_final=True,
+                    result={
+                        "error": "no_image_data",
+                        "message": "图片分析智能体需要图片数据"
+                    }
+                )
+                return
+
+            # 静默分析，不显示中间过程
+            # 准备测试用例生成的多模态消息
+            multimodal_message = await self._prepare_test_case_multimodal_message(message)
+
+            # 分析图片生成测试场景
+            test_scenarios = await self._analyze_image_for_test_scenarios(multimodal_message, message)
+
+            # 解析测试场景文字为结构化数据
+            suggested_test_scenarios = self._parse_test_scenarios_text(test_scenarios)
+
+            # 提取步骤数量
+            total_steps = sum(len(scenario.get("test_steps", [])) for scenario in suggested_test_scenarios)
+
+            # 发送生成的测试场景文字（直接发送最终结果，不显示分析过程）
+            await self.send_response(
+                content="",  # 不显示内容，直接返回结果
+                is_final=True,
+                result={
+                    "test_scenarios": test_scenarios,  # 原始文字
+                    "suggested_test_scenarios": suggested_test_scenarios,  # 结构化数据，前端期望的格式
+                    "session_id": message.session_id,
+                    "total_steps": total_steps
+                }
+            )
+
+        except Exception as e:
+            await self.handle_exception("handle_test_case_generation_message", e)
 
     async def _route_to_script_generators(self, analysis_result: WebMultimodalAnalysisResponse, generate_formats: List[str]) -> None:
         """根据用户选择的格式路由到相应的脚本生成智能体"""
@@ -1179,3 +1224,272 @@ REVISE
         except Exception as e:
             logger.debug(f"计算置信度失败: {str(e)}")
             return 0.8
+
+    # ==================== 测试用例创建相关方法 ====================
+
+    async def _prepare_test_case_multimodal_message(self, request: WebTestCaseGenerationRequest) -> MultiModalMessage:
+        """为测试用例生成准备多模态消息"""
+        try:
+            content_parts = []
+
+            # 添加图片（如果有）
+            if request.image_data:
+                # 解码base64图片
+                image_data = base64.b64decode(request.image_data.split(',')[1])
+                image = Image.open(BytesIO(image_data))
+
+                # 转换为AutoGen的Image格式
+                ag_image = AGImage.from_pil(image)
+                content_parts.append(ag_image)
+
+            # 添加基本的分析提示
+            basic_prompt = f"""请分析这个界面截图，理解其功能和结构。
+
+用户测试需求：{request.test_description or '分析界面功能'}
+
+## 设计原则
+
+### 1. 基于界面元素分析
+- 识别所有可交互元素（按钮、输入框、链接等）
+- 分析元素之间的逻辑关系
+- 推断可能的用户操作流程
+
+### 2. 场景分类策略
+- **正常流程**: 用户按预期路径操作
+- **异常流程**: 错误输入、网络异常等
+- **边界测试**: 最大值、最小值、空值等
+- **兼容性测试**: 不同浏览器、设备等
+
+### 3. 优先级设置
+- **高优先级**: 核心业务功能、主要用户路径
+- **中优先级**: 辅助功能、常见异常处理
+- **低优先级**: 边界情况、罕见场景
+
+### 4. 测试数据设计
+- 提供具体的测试数据示例
+- 包含有效数据和无效数据
+- 考虑数据的多样性和代表性
+
+## 输出要求
+
+1. **场景完整性**: 每个场景包含完整的测试信息
+2. **可执行性**: 测试步骤清晰，可直接转换为自动化脚本
+3. **实用性**: 基于真实用户需求，避免过于理论化
+4. **多样性**: 覆盖不同类型的测试场景
+5. **结构化**: 严格遵循JSON格式，便于程序处理
+
+请根据提供的UI界面分析结果，生成3-8个不同类型的测试用例场景。"""
+
+            content_parts.append(basic_prompt)
+
+            return MultiModalMessage(
+                content=content_parts,
+                source="user"
+            )
+
+        except Exception as e:
+            logger.error(f"准备测试用例多模态消息失败: {str(e)}")
+            raise
+
+    async def _analyze_image_for_test_scenarios(self, multimodal_message: MultiModalMessage, message: WebTestCaseGenerationRequest) -> str:
+        """分析图片生成测试场景文字"""
+        try:
+            # 创建测试用例生成智能体
+            analyzer_agent = self.create_test_case_generator_agent()
+
+            # 添加测试场景生成的特定提示
+            test_scenario_prompt = f"""请分析这个界面截图，生成结构化的测试场景。
+
+用户需求：{message.test_description or '分析界面功能并生成测试场景'}
+
+请按照以下格式输出测试场景：
+
+场景名称: 简短描述
+- 具体测试步骤1
+- 具体测试步骤2
+- 具体测试步骤3
+
+示例格式：
+登录功能测试: 验证用户通过用户名密码登录系统
+- 输入有效用户名
+- 输入正确密码
+- 点击登录按钮
+- 验证登录成功
+
+注册功能测试: 验证新用户注册流程
+- 填写注册信息
+- 提交注册表单
+- 验证注册成功
+
+要求：
+1. 每个场景包含场景名称和描述（用冒号分隔）
+2. 测试步骤用"-"开头，每行一个步骤
+3. 步骤要具体可执行
+4. 覆盖主要功能和异常情况
+5. 生成2-4个测试场景
+
+请只输出测试场景，不要其他说明文字。"""
+
+            # 修改多模态消息，添加测试场景生成的提示
+            enhanced_content = list(multimodal_message.content)
+            enhanced_content.append(test_scenario_prompt)
+
+            enhanced_message = MultiModalMessage(
+                content=enhanced_content,
+                source="user"
+            )
+
+            # 调用模型分析
+            response = await analyzer_agent.on_messages([enhanced_message], cancellation_token=None)
+
+            # 提取生成的测试场景文字
+            if response and response.chat_message:
+                return response.chat_message.content
+            else:
+                return "图片分析完成，但未能生成具体的测试场景。请检查图片内容或手动输入测试描述。"
+
+        except Exception as e:
+            logger.error(f"图片分析生成测试场景失败: {str(e)}")
+            return f"图片分析失败：{str(e)}。请手动输入测试场景描述。"
+
+
+
+
+
+    @classmethod
+    def create_test_case_generator_agent(cls, **kwargs) -> AssistantAgent:
+        """创建测试用例生成智能体"""
+        from app.agents.factory import agent_factory
+
+        return agent_factory.create_assistant_agent(
+            name=AgentTypes.TEST_CASE_GENERATOR.value,
+            system_message=cls._build_test_case_generator_prompt(),
+            model_client_type=LLModel.QWENVL,  # 使用支持视觉的模型
+            **kwargs
+        )
+
+    @staticmethod
+    def _build_test_case_generator_prompt() -> str:
+        """构建测试用例生成智能体的提示词"""
+        return """你是一个专业的测试用例生成专家。你的任务是基于用户提供的界面截图或描述，生成全面的测试用例场景。
+
+请按照以下要求生成测试用例：
+
+1. **功能测试场景**：
+   - 正常流程测试
+   - 异常流程测试
+   - 边界值测试
+
+2. **UI交互测试场景**：
+   - 点击、输入、选择等基本操作
+   - 表单验证
+   - 响应式布局测试
+
+3. **测试用例格式**：
+   - 测试场景名称
+   - 前置条件
+   - 测试步骤
+   - 预期结果
+   - 优先级
+
+请确保生成的测试用例：
+- 覆盖面广泛
+- 具有实际可执行性
+- 符合测试最佳实践
+- 考虑真实用户使用场景
+
+请用中文回复，并保持专业的测试术语。"""
+
+    def _parse_test_scenarios_text(self, text: str) -> list:
+        """将结构化测试场景文字解析为数据"""
+        try:
+            import re
+            scenarios = []
+
+            # 按行分割文字
+            lines = text.split('\n')
+            current_scenario = None
+            current_steps = []
+
+            for line in lines:
+                line = line.strip()
+                if not line:
+                    continue
+
+                # 检测场景标题（包含冒号的行，且不以"-"开头）
+                if ':' in line and not line.startswith('-'):
+                    # 保存之前的场景
+                    if current_scenario:
+                        current_scenario["test_steps"] = current_steps
+                        current_scenario["description"] = f"{current_scenario['scenario_description']}\n" + "\n".join(current_steps)
+                        scenarios.append(current_scenario)
+
+                    # 解析新场景
+                    parts = line.split(':', 1)
+                    scenario_name = parts[0].strip()
+                    scenario_description = parts[1].strip() if len(parts) > 1 else ""
+
+                    current_scenario = {
+                        "scenario_id": f"TC{len(scenarios) + 1:03d}",
+                        "scenario_name": scenario_name,
+                        "scenario_description": scenario_description,
+                        "description": "",  # 将在后面填充
+                        "category": "功能测试",
+                        "priority": "中",
+                        "estimated_duration": "3分钟",
+                        "preconditions": [],
+                        "test_steps": [],
+                        "expected_results": [],
+                        "test_data": {},
+                        "tags": ["自动生成", "图片分析"]
+                    }
+                    current_steps = []
+
+                # 检测测试步骤（以"-"开头）
+                elif line.startswith('-'):
+                    step = line[1:].strip()  # 移除"-"前缀
+                    if step:
+                        current_steps.append(step)
+
+            # 保存最后一个场景
+            if current_scenario:
+                current_scenario["test_steps"] = current_steps
+                current_scenario["description"] = f"{current_scenario['scenario_description']}\n" + "\n".join(current_steps)
+                scenarios.append(current_scenario)
+
+            # 如果没有解析出场景，创建一个默认场景
+            if not scenarios:
+                scenarios.append({
+                    "scenario_id": "TC001",
+                    "scenario_name": "图片分析生成的测试场景",
+                    "description": text,
+                    "category": "功能测试",
+                    "priority": "中",
+                    "estimated_duration": "3分钟",
+                    "preconditions": [],
+                    "test_steps": [text],
+                    "expected_results": [],
+                    "test_data": {},
+                    "tags": ["自动生成"]
+                })
+
+            return scenarios
+
+        except Exception as e:
+            logger.error(f"解析测试场景失败: {str(e)}")
+            # 返回一个默认场景
+            return [{
+                "scenario_id": "TC001",
+                "scenario_name": "图片分析生成的测试场景",
+                "description": text,
+                "category": "功能测试",
+                "priority": "中",
+                "estimated_duration": "3分钟",
+                "preconditions": [],
+                "test_steps": [text],
+                "expected_results": [],
+                "test_data": {},
+                "tags": ["自动生成"]
+            }]
+
+

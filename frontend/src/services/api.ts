@@ -202,6 +202,50 @@ export const analyzeWebURL = async (data: URLAnalysisRequest): Promise<AnalysisR
 };
 
 /**
+ * 测试用例创建 - 图片分析
+ */
+export const analyzeImageForTestCases = async (formData: FormData): Promise<AnalysisResult> => {
+  const response = await apiClient.post('/web/test-case-creation/analyze-image', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
+};
+
+/**
+ * 测试用例创建 - 文字分析
+ */
+export const analyzeTextForTestCases = async (data: {
+  test_description: string;
+  additional_context?: string;
+  generate_formats?: string;
+}): Promise<AnalysisResult> => {
+  const response = await apiClient.post('/web/test-case-creation/analyze-text', data);
+  return response.data;
+};
+
+/**
+ * 根据测试场景生成脚本
+ */
+export const generateScriptsFromTestCases = async (data: {
+  session_id: string;
+  test_scenarios: any[];
+  generate_formats: string[];
+}): Promise<any> => {
+  const response = await apiClient.post('/web/test-case-creation/generate-scripts', data);
+  return response.data;
+};
+
+/**
+ * 获取测试用例分析状态
+ */
+export const getTestCaseAnalysisStatus = async (sessionId: string): Promise<any> => {
+  const response = await apiClient.get(`/web/test-case-creation/status/${sessionId}`);
+  return response.data;
+};
+
+/**
  * Web平台Crawl4AI多页面抓取
  */
 export const startWebCrawl = async (data: {

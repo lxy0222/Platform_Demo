@@ -16,6 +16,7 @@ from app.core.messages import (
     WebMultimodalAnalysisRequest, YAMLExecutionRequest, PlaywrightExecutionRequest,
     AnalysisType
 )
+from app.core.messages.web import WebTestCaseGenerationRequest
 
 
 class WebOrchestrator:
@@ -90,9 +91,21 @@ class WebOrchestrator:
         """清理运行时"""
         try:
             if self.runtime:
-                await self.runtime.stop_when_idle()
-                await self.runtime.close()
-                self.runtime = None
+                # 检查运行时是否仍在运行状态
+                try:
+                    # 只有在运行时仍然活跃时才尝试停止
+                    if hasattr(self.runtime, '_running') and self.runtime._running:
+                        await self.runtime.stop_when_idle()
+                    await self.runtime.close()
+                except Exception as runtime_error:
+                    # 运行时清理失败不是致命错误，记录但继续清理其他资源
+                    logger.warning(f"运行时停止失败（可能已经停止）: {str(runtime_error)}")
+                    try:
+                        await self.runtime.close()
+                    except:
+                        pass  # 忽略关闭时的错误
+                finally:
+                    self.runtime = None
 
             # 清理智能体工厂注册记录
             self.agent_factory.clear_registered_agents()
@@ -105,6 +118,8 @@ class WebOrchestrator:
 
         except Exception as e:
             logger.error(f"清理Web运行时失败: {str(e)}")
+            # 确保运行时被重置，即使清理失败
+            self.runtime = None
 
     # ==================== 业务流程1: 图片分析 → 脚本生成（支持格式选择） ====================
 
@@ -199,7 +214,129 @@ class WebOrchestrator:
             generate_formats=["playwright"]
         )
 
-    # ==================== 业务流程2: 页面元素分析 ====================
+    # ==================== 业务流程2: 测试用例分析 ====================
+
+    async def run_test_case_analysis(
+        self,
+        request: WebTestCaseGenerationRequest,
+        platform: str = "web"
+    ):
+        """
+        业务流程2: 测试用例分析 - 基于图片生成测试用例场景
+        """
+        try:
+            await self._setup_runtime(request.session_id)
+
+            # 记录会话信息
+            self.active_sessions[request.session_id] = {
+                "status": "analyzing",
+                "start_time": datetime.now().isoformat(),
+                "platform": platform,
+                "analysis_type": "test_case_generation"
+            }
+
+            # 根据是否有图片选择不同的处理流程
+            if request.image_data:
+                # 有图片，使用图片分析智能体
+                await self.runtime.publish_message(
+                    request,
+                    topic_id=TopicId(type=TopicTypes.IMAGE_ANALYZER.value, source="orchestrator")
+                )
+            else:
+                # 没有图片，直接使用测试用例生成智能体
+                await self.runtime.publish_message(
+                    request,
+                    topic_id=TopicId(type=TopicTypes.TEST_CASE_GENERATOR.value, source="orchestrator")
+                )
+
+            # 等待分析完成
+            await self.runtime.stop_when_idle()
+
+            logger.info(f"测试用例分析完成，会话ID: {request.session_id}")
+
+            # 注意：结果通过智能体回调和消息队列传递，不需要在这里返回
+
+        except Exception as e:
+            logger.error(f"测试用例分析失败，会话ID: {request.session_id}, 错误: {str(e)}")
+
+            # 更新会话状态
+            if request.session_id in self.active_sessions:
+                self.active_sessions[request.session_id].update({
+                    "status": "failed",
+                    "error": str(e),
+                    "end_time": datetime.now().isoformat()
+                })
+
+            raise
+        finally:
+            await self._cleanup_runtime()
+
+    async def run_script_generation_from_scenarios(
+        self,
+        session_id: str,
+        test_scenarios: List[Dict[str, Any]],
+        generate_formats: List[str]
+    ):
+        """
+        根据测试场景生成脚本
+        """
+        try:
+            await self._setup_runtime(session_id)
+
+            # 记录会话信息
+            self.active_sessions[session_id] = {
+                "status": "generating_scripts",
+                "start_time": datetime.now().isoformat(),
+                "test_scenarios": test_scenarios,
+                "generate_formats": generate_formats
+            }
+
+            # 为每种格式生成脚本
+            results = {}
+            for format_type in generate_formats:
+                if format_type == "yaml":
+                    topic_type = TopicTypes.YAML_GENERATOR.value
+                elif format_type == "playwright":
+                    topic_type = TopicTypes.PLAYWRIGHT_GENERATOR.value
+                else:
+                    continue
+
+                # 构建生成请求
+                generation_request = {
+                    "session_id": session_id,
+                    "test_scenarios": test_scenarios,
+                    "format": format_type
+                }
+
+                # 发布消息到相应的生成智能体
+                await self.runtime.publish_message(
+                    generation_request,
+                    topic_id=TopicId(type=topic_type, source="orchestrator")
+                )
+
+            # 等待生成完成
+            await self.runtime.stop_when_idle()
+
+            logger.info(f"脚本生成完成，会话ID: {session_id}")
+
+            # 注意：结果通过智能体回调和消息队列传递，不需要在这里返回
+
+        except Exception as e:
+            logger.error(f"脚本生成失败，会话ID: {session_id}, 错误: {str(e)}")
+
+            # 更新会话状态
+            if session_id in self.active_sessions:
+                self.active_sessions[session_id].update({
+                    "status": "script_generation_failed",
+                    "error": str(e),
+                    "end_time": datetime.now().isoformat()
+                })
+
+            raise
+        finally:
+            await self._cleanup_runtime()
+
+    # ==================== 业务流程3: 页面元素分析 ====================
 
     async def analyze_page_elements(
         self,

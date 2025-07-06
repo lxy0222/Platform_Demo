@@ -5,6 +5,7 @@ import WebTestCreationOptimized from './components/WebTestCreation/WebTestCreati
 import WebTestExecutionOptimized from './components/WebTestExecution/WebTestExecutionOptimized';
 // 导入Web模块下的页面组件
 import TestCreation from './TestCreation/TestCreation';
+import TestCaseCreation from './TestCaseCreation/TestCaseCreation';
 import TestExecution from './TestExecution/TestExecution';
 import UnifiedTestExecution from './TestExecution/UnifiedTestExecution';
 import TestResults from './TestResults/TestResults';
@@ -19,6 +20,9 @@ const WebModule: React.FC = () => {
 
       {/* Web测试创建页面 - 优化版本 */}
       <Route path="create-optimized" element={<WebTestCreationOptimized />} />
+
+      {/* Web测试用例创建页面 */}
+      <Route path="test-case-creation" element={<TestCaseCreation />} />
 
       {/* Web页面分析页面 */}
       <Route path="page-analysis" element={<PageAnalysis />} />

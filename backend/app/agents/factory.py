@@ -35,6 +35,7 @@ class AgentFactory:
             # Web平台智能体
             from app.agents.web.image_analyzer import ImageAnalyzerAgent
             from app.agents.web.page_analyzer import PageAnalyzerAgent
+            from app.agents.web.test_case_generator import TestCaseGeneratorAgent
             from app.agents.web.yaml_generator import YAMLGeneratorAgent
             from app.agents.web.yaml_executor import YAMLExecutorAgent
             from app.agents.web.playwright_generator import PlaywrightGeneratorAgent
@@ -46,6 +47,7 @@ class AgentFactory:
             self._agent_classes.update({
                 AgentTypes.IMAGE_ANALYZER.value: ImageAnalyzerAgent,
                 AgentTypes.PAGE_ANALYZER.value: PageAnalyzerAgent,
+                AgentTypes.TEST_CASE_GENERATOR.value: TestCaseGeneratorAgent,
                 AgentTypes.YAML_GENERATOR.value: YAMLGeneratorAgent,
                 AgentTypes.YAML_EXECUTOR.value: YAMLExecutorAgent,
                 AgentTypes.PLAYWRIGHT_GENERATOR.value: PlaywrightGeneratorAgent,
@@ -217,6 +219,15 @@ class AgentFactory:
                 runtime,
                 AgentTypes.PAGE_ANALYZER.value,
                 TopicTypes.PAGE_ANALYZER.value,
+                enable_user_feedback=enable_user_feedback,
+                collector=collector,
+            )
+
+            # 注册测试用例生成智能体
+            await self.register_agent(
+                runtime,
+                AgentTypes.TEST_CASE_GENERATOR.value,
+                TopicTypes.TEST_CASE_GENERATOR.value,
                 enable_user_feedback=enable_user_feedback,
                 collector=collector,
             )

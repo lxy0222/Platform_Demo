@@ -140,6 +140,33 @@ class WebPlaywrightGenerationMessage(BaseMessage):
     generation_config: Dict[str, Any] = Field(default_factory=dict, description="生成配置")
 
 
+class WebTestCaseGenerationRequest(BaseMessage):
+    """Web测试用例生成请求消息"""
+    session_id: str = Field(..., description="会话ID")
+    analysis_type: AnalysisType = Field(default=AnalysisType.IMAGE, description="分析类型")
+
+    # 图像输入选项（三选一）
+    image_data: Optional[str] = Field(None, description="Base64编码的图片数据")
+    image_url: Optional[str] = Field(None, description="图片URL")
+    image_path: Optional[str] = Field(None, description="图片文件路径")
+
+    # 测试配置
+    test_description: str = Field(..., description="测试需求描述")
+    additional_context: Optional[str] = Field(None, description="额外上下文信息")
+    generate_formats: List[str] = Field(default=["yaml"], description="生成格式列表")
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "session_id": "uuid-string",
+                "image_data": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
+                "test_description": "测试用户登录功能",
+                "additional_context": "需要验证表单验证和错误提示",
+                "generate_formats": ["yaml", "playwright"]
+            }
+        }
+
+
 class WebScriptExecutionMessage(BaseMessage):
     """Web脚本执行消息"""
     session_id: str = Field(..., description="会话ID")

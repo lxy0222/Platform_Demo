@@ -7,6 +7,7 @@ from fastapi import APIRouter
 from app.api.v1.endpoints.web import (
     image_analysis_router,
     page_analysis_router,
+    test_case_creation_router,
     script_management_router,
     script_execution_router
 )
@@ -30,6 +31,13 @@ api_router.include_router(
     page_analysis_router,
     prefix="/web/page-analysis",
     tags=["Web-页面分析"]
+)
+
+# Web测试用例创建 - /web/test-case-creation/*
+api_router.include_router(
+    test_case_creation_router,
+    prefix="/web",
+    tags=["Web-测试用例创建"]
 )
 
 # Web脚本管理 - /web/scripts/* (数据库脚本管理)
