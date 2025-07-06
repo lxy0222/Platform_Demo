@@ -20,6 +20,7 @@ AGENT_NAMES: Dict[str, str] = {
     AgentTypes.WEB_SCRAPER.value: "网页抓取智能体",
     AgentTypes.API_ANALYZER.value: "API接口分析智能体",
     AgentTypes.IMAGE_ANALYZER.value: "图片分析智能体",
+    AgentTypes.PAGE_ANALYZER.value: "页面分析智能体",
 
     # 生成类智能体
     AgentTypes.TEST_PLANNER.value: "测试规划智能体",
@@ -47,6 +48,7 @@ TOPIC_TYPES: Dict[str, str] = {
     "web_scraper": TopicTypes.WEB_SCRAPER.value,
     "api_analyzer": TopicTypes.API_ANALYZER.value,
     "image_analyzer": TopicTypes.IMAGE_ANALYZER.value,
+    "page_analyzer": TopicTypes.PAGE_ANALYZER.value,
 
     # 生成类主题
     "test_planner": TopicTypes.TEST_PLANNER.value,

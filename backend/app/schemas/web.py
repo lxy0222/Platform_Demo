@@ -37,6 +37,10 @@ from app.core.messages.web import (
     WebYAMLGenerationMessage,
     WebPlaywrightGenerationMessage,
     WebScriptExecutionMessage,
+
+    # 页面分析消息
+    PageAnalysisStorageRequest,
+    PageAnalysisStorageResponse,
     
     # 枚举类型
     AnalysisType
@@ -74,8 +78,12 @@ __all__ = [
     # 智能体消息
     "WebUIAnalysisMessage",
     "WebYAMLGenerationMessage",
-    "WebPlaywrightGenerationMessage", 
+    "WebPlaywrightGenerationMessage",
     "WebScriptExecutionMessage",
+
+    # 页面分析消息
+    "PageAnalysisStorageRequest",
+    "PageAnalysisStorageResponse",
     
     # 流式消息
     "StreamMessage",

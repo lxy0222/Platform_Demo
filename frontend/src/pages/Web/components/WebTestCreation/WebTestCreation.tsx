@@ -33,7 +33,8 @@ import {
   CodeOutlined,
   SaveOutlined,
   CloseOutlined,
-  CheckCircleOutlined
+  CheckCircleOutlined,
+  ExperimentOutlined
 } from '@ant-design/icons';
 import { motion } from 'framer-motion';
 import { useMutation } from 'react-query';
@@ -339,8 +340,9 @@ ${script.yaml_content}
   };
 
   const handleImageAnalysis = async (values: any) => {
-    if (!uploadedFile) {
-      message.error('请先上传图片');
+    // 检查是否有测试场景或图片
+    if (!values.test_scenario && !uploadedFile) {
+      message.error('请输入测试用例场景或上传页面截图');
       return;
     }
 
@@ -349,8 +351,19 @@ ${script.yaml_content}
     // 注意：不要在开始新分析时重置preserveStreamingContent，让StreamingDisplay自己处理
 
     const formData = new FormData();
-    formData.append('file', uploadedFile);
-    formData.append('test_description', values.test_description);
+
+    // 如果有上传的图片，添加图片文件
+    if (uploadedFile) {
+      formData.append('file', uploadedFile);
+    }
+
+    // 构建测试描述，包含测试场景
+    let testDescription = values.test_description;
+    if (values.test_scenario) {
+      testDescription = `${testDescription}\n\n测试场景：\n${values.test_scenario}`;
+    }
+
+    formData.append('test_description', testDescription);
     if (values.additional_context) {
       formData.append('additional_context', values.additional_context);
     }
@@ -359,7 +372,7 @@ ${script.yaml_content}
     // 默认保存到数据库 - UI测试自动保存
     formData.append('save_to_database', 'true');
     formData.append('script_name', `UI测试脚本_${Date.now()}`);
-    formData.append('script_description', values.test_description || 'UI自动化测试脚本');
+    formData.append('script_description', testDescription);
     formData.append('tags', JSON.stringify(['UI测试', '自动化']));
     formData.append('category', 'UI测试');
     formData.append('priority', '1');
@@ -971,8 +984,8 @@ ${script.yaml_content}
                 <TabPane
                   tab={
                     <span>
-                      <UploadOutlined />
-                      图片分析
+                      <ExperimentOutlined />
+                      创建测试
                     </span>
                   }
                   key="image"
@@ -984,8 +997,18 @@ ${script.yaml_content}
                     disabled={isAnalyzing}
                   >
                     <Form.Item
-                      label="上传UI截图"
-                      required
+                      name="test_scenario"
+                      label="测试用例场景"
+                      rules={[{ required: true, message: '请输入测试用例场景或上传图片' }]}
+                    >
+                      <TextArea
+                        rows={4}
+                        placeholder="请输入测试用例场景描述，例如：&#10;1. 用户打开登录页面&#10;2. 输入正确的用户名和密码&#10;3. 点击登录按钮&#10;4. 验证登录成功并跳转到首页&#10;&#10;或者上传页面截图进行自动分析"
+                      />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="或上传页面截图进行分析（可选）"
                     >
                       <Upload
                         beforeUpload={handleImageUpload}
@@ -1002,7 +1025,7 @@ ${script.yaml_content}
                         )}
                       </Upload>
                       <Text type="secondary">
-                        支持 PNG, JPG, JPEG 格式，建议尺寸不超过 5MB
+                        支持 PNG, JPG, JPEG 格式，建议尺寸不超过 5MB。上传图片后系统会自动分析页面元素并生成测试场景
                       </Text>
                     </Form.Item>
 
@@ -1012,8 +1035,8 @@ ${script.yaml_content}
                       rules={[{ required: true, message: '请输入测试需求描述' }]}
                     >
                       <TextArea
-                        rows={3}
-                        placeholder="请详细描述您想要测试的功能，例如：测试用户登录功能，包括正常登录、错误密码、空字段验证等场景"
+                        rows={2}
+                        placeholder="请简要描述测试目标，例如：验证用户登录功能的完整性"
                       />
                     </Form.Item>
 

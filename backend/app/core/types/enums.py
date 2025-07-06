@@ -32,6 +32,7 @@ class AgentTypes(Enum):
     WEB_SCRAPER = "web_scraper"                      # 网页抓取智能体（Crawl4AI）
     API_ANALYZER = "api_analyzer"                    # API接口分析智能体
     IMAGE_ANALYZER = "image_analyzer"                # 图片分析智能体
+    PAGE_ANALYZER = "page_analyzer"                  # 页面分析智能体
 
     # 生成类智能体
     TEST_PLANNER = "test_planner"                    # 测试规划智能体
@@ -50,6 +51,7 @@ class AgentTypes(Enum):
     REPORT_GENERATOR = "report_generator"            # 报告生成智能体
     SCRIPT_MANAGER = "script_manager"                # 脚本管理智能体
     SCRIPT_DATABASE_SAVER = "script_database_saver"  # 脚本数据库保存智能体
+    PAGE_ANALYSIS_STORAGE = "page_analysis_storage"  # 页面分析存储智能体
 
 
 class TopicTypes(Enum):
@@ -58,6 +60,7 @@ class TopicTypes(Enum):
     MULTIMODAL_ANALYZER = "multimodal_analyzer"
     WEB_SCRAPER = "web_scraper"
     API_ANALYZER = "api_analyzer"
+    PAGE_ANALYZER = "page_analyzer"
 
     # 生成类主题
     TEST_PLANNER = "test_planner"
@@ -77,6 +80,7 @@ class TopicTypes(Enum):
     REPORT_GENERATOR = "report_generator"
     SCRIPT_MANAGER = "script_manager"
     SCRIPT_DATABASE_SAVER = "script_database_saver"
+    PAGE_ANALYSIS_STORAGE = "page_analysis_storage"
 
     # 系统主题
     STREAM_OUTPUT = "stream_output"

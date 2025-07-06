@@ -6,6 +6,7 @@ from fastapi import APIRouter
 # 导入各功能模块的路由
 from app.api.v1.endpoints.web import (
     image_analysis_router,
+    page_analysis_router,
     script_management_router,
     script_execution_router
 )
@@ -22,6 +23,13 @@ api_router.include_router(
     image_analysis_router,
     prefix="/web/create",
     tags=["Web-图片分析"]
+)
+
+# Web页面分析 - /web/page-analysis/*
+api_router.include_router(
+    page_analysis_router,
+    prefix="/web/page-analysis",
+    tags=["Web-页面分析"]
 )
 
 # Web脚本管理 - /web/scripts/* (数据库脚本管理)

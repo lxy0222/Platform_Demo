@@ -40,7 +40,8 @@ import {
   BugOutlined,
   LineChartOutlined,
   DatabaseOutlined,
-  SearchOutlined
+  SearchOutlined,
+  ScanOutlined
 } from '@ant-design/icons';
 import { motion } from 'framer-motion';
 
@@ -123,6 +124,13 @@ const menuItems: MenuItem[] = [
     type: 'group',
     icon: null,
     children: [
+      {
+        key: 'web-page-analysis',
+        icon: <ScanOutlined />,
+        label: '页面分析',
+        path: '/web/page-analysis',
+        type: 'item'
+      },
       {
         key: 'web-test-create',
         icon: <ExperimentOutlined />,

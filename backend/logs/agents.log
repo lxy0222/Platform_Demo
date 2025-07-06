@@ -1,65 +1,361 @@
-2025-06-24 15:35:48 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
-2025-06-24 15:35:48 | INFO     | app.agents.factory:register_web_agents:201 | 开始注册Web平台智能体...
-2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: 图片分析智能体
-2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: YAML生成智能体
-2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: YAML脚本执行智能体
-2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: Playwright代码生成智能体
-2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: Playwright执行智能体
-2025-06-24 15:35:48 | INFO     | app.agents.factory:register_agent:183 | 注册智能体成功: 脚本数据库保存智能体
-2025-06-24 15:35:48 | INFO     | app.agents.factory:register_web_agents:246 | Web平台智能体注册完成，共注册 6 个智能体
-2025-06-24 15:35:48 | INFO     | app.agents.factory:register_stream_collector:331 | 流式响应收集器注册成功
-2025-06-24 15:35:48 | INFO     | app.core.agents.base:__init__:38 | 初始化 图片分析智能体 智能体 (ID: image_analyzer)
-2025-06-24 15:35:48 | INFO     | app.agents.web.image_analyzer:__init__:49 | 图片专门分析智能体初始化完成，用户反馈: False
-2025-06-24 15:35:48 | INFO     | app.agents.factory:create_agent:137 | 创建智能体: 图片分析智能体
-2025-06-24 15:35:48 | INFO     | app.agents.factory:create_assistant_agent:102 | 创建 AssistantAgent: ui_expert (模型: uitars)
-2025-06-24 15:35:48 | INFO     | app.agents.factory:create_assistant_agent:102 | 创建 AssistantAgent: interaction_analyst (模型: uitars)
-2025-06-24 15:35:48 | INFO     | app.agents.factory:create_assistant_agent:102 | 创建 AssistantAgent: midscene_expert (模型: deepseek)
-2025-06-24 15:35:48 | INFO     | app.agents.web.image_analyzer:_convert_image_to_agimage:819 | 成功转换图片为AGImage，尺寸: (2652, 1362)
-2025-06-24 15:35:51 | ERROR    | app.agents.web.image_analyzer:_run_team_analysis:293 | 团队分析执行失败: AuthenticationError: Error code: 401 - {'error': {'code': 'AuthenticationError', 'message': 'The API key in the request is missing or invalid. Request id: 0217507505497155370b800396c5d3c2492863bdea6ffcff853bc', 'param': '', 'type': 'Unauthorized'}}
-Traceback:
-Traceback (most recent call last):
-
-  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_agentchat/teams/_group_chat/_chat_agent_container.py", line 79, in handle_request
-    async for msg in self._agent.on_messages_stream(self._message_buffer, ctx.cancellation_token):
-
-  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_agentchat/agents/_assistant_agent.py", line 852, in on_messages_stream
-    async for inference_output in self._call_llm(
-
-  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_agentchat/agents/_assistant_agent.py", line 965, in _call_llm
-    async for chunk in model_client.create_stream(
-
-  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_ext/models/openai/_openai_client.py", line 824, in create_stream
-    async for chunk in chunks:
-
-  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/autogen_ext/models/openai/_openai_client.py", line 1015, in _create_stream_chunks
-    stream = await stream_future
-             ^^^^^^^^^^^^^^^^^^^
-
-  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2028, in create
-    return await self._post(
-           ^^^^^^^^^^^^^^^^^
-
-  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1784, in post
-    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/Users/fairy/Desktop/Project/Platform_Demo/backend/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1584, in request
-    raise self._make_status_error_from_response(err.response) from None
-
-openai.AuthenticationError: Error code: 401 - {'error': {'code': 'AuthenticationError', 'message': 'The API key in the request is missing or invalid. Request id: 0217507505497155370b800396c5d3c2492863bdea6ffcff853bc', 'param': '', 'type': 'Unauthorized'}}
-
-2025-06-24 15:35:51 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [图片分析智能体] operation 耗时: 3.24秒
-2025-06-24 15:35:51 | INFO     | app.agents.web.image_analyzer:_route_to_script_generators:157 | 成功发送分析结果到 playwright 生成智能体
-2025-06-24 15:35:51 | INFO     | app.core.agents.base:__init__:38 | 初始化 Playwright代码生成智能体 智能体 (ID: playwright_generator)
-2025-06-24 15:35:51 | INFO     | app.agents.web.playwright_generator:__init__:39 | Playwright代码生成智能体初始化完成: Playwright代码生成智能体
-2025-06-24 15:35:51 | INFO     | app.agents.factory:create_agent:137 | 创建智能体: Playwright代码生成智能体
-2025-06-24 15:35:51 | INFO     | app.agents.factory:create_assistant_agent:102 | 创建 AssistantAgent: playwright_generator (模型: deepseek)
-2025-06-24 15:36:21 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [Playwright代码生成智能体] operation 耗时: 29.86秒
-2025-06-24 15:36:21 | INFO     | app.agents.web.playwright_generator:_save_playwright_files:506 | Playwright项目文件已保存到: C:\Users\86134\Desktop\workspace\playwright-workspace
-2025-06-24 15:36:21 | INFO     | app.agents.web.playwright_generator:_send_to_database_saver:329 | Playwright脚本已发送到数据库保存智能体: 9fd099a7-1ecb-4d4f-a4e5-99f893c02e43
-2025-06-24 15:36:21 | INFO     | app.core.agents.base:__init__:38 | 初始化 脚本数据库保存智能体 智能体 (ID: script_database_saver)
-2025-06-24 15:36:21 | INFO     | app.agents.web.script_database_saver:__init__:54 | 脚本数据库保存智能体初始化完成: 脚本数据库保存智能体
-2025-06-24 15:36:21 | INFO     | app.agents.factory:create_agent:137 | 创建智能体: 脚本数据库保存智能体
-2025-06-24 15:36:21 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [脚本数据库保存智能体] script_save 耗时: 0.04秒
-2025-06-24 15:36:21 | INFO     | app.agents.web.script_database_saver:handle_script_save_request:140 | 脚本保存成功: e232c392-e5e0-40bd-989e-e8555a6910d2 - test_20250624_153621.spec.ts
-2025-06-24 15:36:21 | INFO     | app.agents.factory:clear_registered_agents:375 | 已清空智能体注册记录
+2025-07-06 12:55:26 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 12:55:26 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 12:55:26 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 12:55:26 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 12:55:26 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 12:55:26 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 12:55:50 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 测试存储功能页面, 元素数量: 3
+2025-07-06 12:55:50 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 测试存储功能页面
+2025-07-06 12:55:50 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 12:55:50 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 12:55:50 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 12:55:50 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: f92e3178-b254-40c0-b66a-055dc4f143bd
+2025-07-06 12:55:50 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:198 | 成功准备了 3 个页面元素数据
+2025-07-06 12:55:50 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:117 | 页面分析结果已保存到数据库，ID: 975bee76-d370-4617-9f73-2ee132aa329c
+2025-07-06 12:55:50 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.05秒
+2025-07-06 12:55:50 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: 975bee76-d370-4617-9f73-2ee132aa329c
+2025-07-06 12:55:50 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 13:00:35 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 13:00:35 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 13:00:35 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 13:00:35 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 13:00:35 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 13:00:35 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 13:00:45 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 前端显示测试页面, 元素数量: 1
+2025-07-06 13:00:45 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 前端显示测试页面
+2025-07-06 13:00:45 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 13:00:45 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 13:00:45 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 13:00:45 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: 3925b118-e82c-4f94-9f97-942c8599e754
+2025-07-06 13:00:45 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:198 | 成功准备了 1 个页面元素数据
+2025-07-06 13:00:45 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:117 | 页面分析结果已保存到数据库，ID: 6ed33975-c67c-4c96-bb1e-2b445f25dc63
+2025-07-06 13:00:45 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.02秒
+2025-07-06 13:00:45 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: 6ed33975-c67c-4c96-bb1e-2b445f25dc63
+2025-07-06 13:00:45 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 13:10:28 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 13:10:28 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 13:10:28 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 13:10:28 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 13:10:28 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 13:10:28 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 13:11:28 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 禅道项目管理软件官网首页, 元素数量: 8
+2025-07-06 13:11:28 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 禅道项目管理软件官网首页
+2025-07-06 13:11:28 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 13:11:28 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 13:11:28 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 13:11:28 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: bcea5f40-29e1-4931-a786-8f14b2883e49
+2025-07-06 13:11:28 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:198 | 成功准备了 8 个页面元素数据
+2025-07-06 13:11:28 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:117 | 页面分析结果已保存到数据库，ID: aace0334-d2e9-453b-a1b8-0fad74594680
+2025-07-06 13:11:28 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.02秒
+2025-07-06 13:11:28 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: aace0334-d2e9-453b-a1b8-0fad74594680
+2025-07-06 13:11:28 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 13:44:43 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 13:44:43 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 13:44:43 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 13:44:43 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 13:44:43 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 13:44:43 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 13:45:08 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 测试分析进度显示页面, 元素数量: 4
+2025-07-06 13:45:08 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 测试分析进度显示页面
+2025-07-06 13:45:08 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 13:45:08 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 13:45:08 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 13:45:08 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: 15f62909-9e8b-453a-8b26-77684903154e
+2025-07-06 13:45:08 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:104 | 找到现有processing记录，更新记录ID: 5acdedbe-9816-48d8-aec9-e7d6526088c1
+2025-07-06 13:45:08 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:259 | 成功准备了 4 个页面元素数据
+2025-07-06 13:45:08 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:141 | 页面分析结果已更新到数据库，ID: 5acdedbe-9816-48d8-aec9-e7d6526088c1
+2025-07-06 13:45:08 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.02秒
+2025-07-06 13:45:08 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: 5acdedbe-9816-48d8-aec9-e7d6526088c1
+2025-07-06 13:45:08 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 13:46:29 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 13:46:29 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 13:46:29 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 13:46:29 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 13:46:29 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 13:46:29 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 13:47:25 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 禅道项目管理软件官网首页, 元素数量: 8
+2025-07-06 13:47:25 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 禅道项目管理软件官网首页
+2025-07-06 13:47:25 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 13:47:25 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 13:47:25 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 13:47:25 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: 0c62ddf0-4a5d-498a-a037-83765a1e2bfc
+2025-07-06 13:47:25 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:104 | 找到现有processing记录，更新记录ID: 3d04fa2c-abd0-41d2-8f3a-c1404bdc5f55
+2025-07-06 13:47:25 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:259 | 成功准备了 8 个页面元素数据
+2025-07-06 13:47:25 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:141 | 页面分析结果已更新到数据库，ID: 3d04fa2c-abd0-41d2-8f3a-c1404bdc5f55
+2025-07-06 13:47:25 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.01秒
+2025-07-06 13:47:25 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: 3d04fa2c-abd0-41d2-8f3a-c1404bdc5f55
+2025-07-06 13:47:25 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 13:53:11 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 13:53:11 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 13:53:11 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 13:53:11 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 13:53:11 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 13:53:11 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 13:53:32 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 测试进度修复页面, 元素数量: 3
+2025-07-06 13:53:32 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 测试进度修复页面
+2025-07-06 13:53:32 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 13:53:32 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 13:53:32 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 13:53:32 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: 9ba34d0f-b17f-4298-98cb-0cf8a9056457
+2025-07-06 13:53:32 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:104 | 找到现有processing记录，更新记录ID: 13f5ec5e-a4f2-4f1a-bbff-e1ebc9dc2f90
+2025-07-06 13:53:32 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:259 | 成功准备了 3 个页面元素数据
+2025-07-06 13:53:32 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:141 | 页面分析结果已更新到数据库，ID: 13f5ec5e-a4f2-4f1a-bbff-e1ebc9dc2f90
+2025-07-06 13:53:32 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.02秒
+2025-07-06 13:53:32 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: 13f5ec5e-a4f2-4f1a-bbff-e1ebc9dc2f90
+2025-07-06 13:53:32 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 13:54:12 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 13:54:12 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 13:54:12 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 13:54:12 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 13:54:12 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 13:54:12 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 13:54:58 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 禅道项目管理软件官网首页, 元素数量: 8
+2025-07-06 13:54:58 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 禅道项目管理软件官网首页
+2025-07-06 13:54:58 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 13:54:58 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 13:54:58 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 13:54:58 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: 03673b90-c548-4835-bf1b-ad1e42fed1e0
+2025-07-06 13:54:58 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:104 | 找到现有processing记录，更新记录ID: 21d9af63-721e-4e5d-b878-d8496c4fd678
+2025-07-06 13:54:58 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:259 | 成功准备了 8 个页面元素数据
+2025-07-06 13:54:58 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:141 | 页面分析结果已更新到数据库，ID: 21d9af63-721e-4e5d-b878-d8496c4fd678
+2025-07-06 13:54:58 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.02秒
+2025-07-06 13:54:58 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: 21d9af63-721e-4e5d-b878-d8496c4fd678
+2025-07-06 13:54:58 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 14:01:25 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 14:01:25 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 14:01:25 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 14:01:25 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 14:01:25 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 14:01:25 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 14:02:16 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 禅道项目管理软件官网首页, 元素数量: 8
+2025-07-06 14:02:16 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 禅道项目管理软件官网首页
+2025-07-06 14:02:16 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 14:02:16 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 14:02:16 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 14:02:16 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: d4461432-6441-4002-b2b5-574d8538804f
+2025-07-06 14:02:16 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:104 | 找到现有processing记录，更新记录ID: e9a3d3c3-db04-4574-8359-8aeeb1e6f97f
+2025-07-06 14:02:16 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:259 | 成功准备了 8 个页面元素数据
+2025-07-06 14:02:16 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:141 | 页面分析结果已更新到数据库，ID: e9a3d3c3-db04-4574-8359-8aeeb1e6f97f
+2025-07-06 14:02:16 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.03秒
+2025-07-06 14:02:16 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: e9a3d3c3-db04-4574-8359-8aeeb1e6f97f
+2025-07-06 14:02:16 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 14:06:34 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 14:06:34 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 14:06:34 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 14:06:34 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 14:06:34 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 14:06:34 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 14:06:59 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 状态更新测试页面, 元素数量: 4
+2025-07-06 14:06:59 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 状态更新测试页面
+2025-07-06 14:06:59 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 14:06:59 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 14:06:59 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 14:06:59 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: 0b9345b7-2dc6-4467-8006-c627af9873d8
+2025-07-06 14:06:59 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:104 | 找到现有processing记录，更新记录ID: 749a856c-a590-44d2-a907-4c01fd50f3f3
+2025-07-06 14:06:59 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:259 | 成功准备了 4 个页面元素数据
+2025-07-06 14:06:59 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:141 | 页面分析结果已更新到数据库，ID: 749a856c-a590-44d2-a907-4c01fd50f3f3
+2025-07-06 14:06:59 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.03秒
+2025-07-06 14:06:59 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: 749a856c-a590-44d2-a907-4c01fd50f3f3
+2025-07-06 14:06:59 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 14:08:09 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 14:08:09 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 14:08:09 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 14:08:09 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 14:08:09 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 14:08:09 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 14:08:54 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 禅道项目管理软件登录页面, 元素数量: 7
+2025-07-06 14:08:54 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 禅道项目管理软件登录页面
+2025-07-06 14:08:54 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 14:08:54 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 14:08:54 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 14:08:54 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: 7ad9b18c-b208-4c7b-ba8b-873da5535f4a
+2025-07-06 14:08:54 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:104 | 找到现有processing记录，更新记录ID: c8d647ad-e642-4ec6-ac32-105355cf73eb
+2025-07-06 14:08:54 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:259 | 成功准备了 7 个页面元素数据
+2025-07-06 14:08:54 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:141 | 页面分析结果已更新到数据库，ID: c8d647ad-e642-4ec6-ac32-105355cf73eb
+2025-07-06 14:08:54 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.01秒
+2025-07-06 14:08:54 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: c8d647ad-e642-4ec6-ac32-105355cf73eb
+2025-07-06 14:08:54 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 14:22:00 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 14:22:00 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 14:22:00 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 14:22:00 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 14:22:00 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 14:22:00 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 14:22:15 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 图片显示测试页面, 元素数量: 1
+2025-07-06 14:22:15 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 图片显示测试页面
+2025-07-06 14:22:15 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 14:22:15 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 14:22:15 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 14:22:15 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: ff63654f-ab42-45f3-b03e-cdebac4fa5ca
+2025-07-06 14:22:15 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:104 | 找到现有processing记录，更新记录ID: 58a2a387-1396-46ba-97d2-2827f90e9f9d
+2025-07-06 14:22:15 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:259 | 成功准备了 1 个页面元素数据
+2025-07-06 14:22:15 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:141 | 页面分析结果已更新到数据库，ID: 58a2a387-1396-46ba-97d2-2827f90e9f9d
+2025-07-06 14:22:15 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.03秒
+2025-07-06 14:22:15 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: 58a2a387-1396-46ba-97d2-2827f90e9f9d
+2025-07-06 14:22:15 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 14:26:55 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 14:26:55 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 14:26:55 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 14:26:55 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 14:26:55 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 14:26:55 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 14:27:31 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 前端图片显示测试页面, 元素数量: 5
+2025-07-06 14:27:31 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 前端图片显示测试页面
+2025-07-06 14:27:31 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 14:27:31 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 14:27:31 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 14:27:31 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: 7f160955-0f51-4aaa-a996-46613b171bb9
+2025-07-06 14:27:31 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:104 | 找到现有processing记录，更新记录ID: be08fde1-3a7b-4e99-9c6b-bc16dd74b2a7
+2025-07-06 14:27:31 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:259 | 成功准备了 5 个页面元素数据
+2025-07-06 14:27:31 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:141 | 页面分析结果已更新到数据库，ID: be08fde1-3a7b-4e99-9c6b-bc16dd74b2a7
+2025-07-06 14:27:31 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.01秒
+2025-07-06 14:27:31 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: be08fde1-3a7b-4e99-9c6b-bc16dd74b2a7
+2025-07-06 14:27:31 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录
+2025-07-06 14:27:59 | INFO     | app.core.agents.collector:__init__:38 | web流式响应收集器初始化完成
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_web_agents:205 | 开始注册Web平台智能体...
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 图片分析智能体
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 页面分析智能体
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML生成智能体
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: YAML脚本执行智能体
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright代码生成智能体
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: Playwright执行智能体
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: 脚本数据库保存智能体
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_agent:187 | 注册智能体成功: page_analysis_storage
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_web_agents:266 | Web平台智能体注册完成，共注册 8 个智能体
+2025-07-06 14:27:59 | INFO     | app.agents.factory:register_stream_collector:351 | 流式响应收集器注册成功
+2025-07-06 14:27:59 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析智能体 智能体 (ID: page_analyzer)
+2025-07-06 14:27:59 | INFO     | app.agents.web.page_analyzer:__init__:47 | 页面分析智能体初始化完成
+2025-07-06 14:27:59 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: 页面分析智能体
+2025-07-06 14:27:59 | INFO     | app.agents.factory:create_assistant_agent:106 | 创建 AssistantAgent: ui_expert (模型: LLModel.QWENVL)
+2025-07-06 14:28:47 | INFO     | app.agents.web.page_analyzer:_parse_analysis_result:169 | 成功解析新格式JSON - 页面: 禅道项目管理软件官网首页, 元素数量: 8
+2025-07-06 14:28:47 | INFO     | app.agents.web.page_analyzer:_send_to_storage_agent:565 | 已发送分析结果到存储智能体，页面: 禅道项目管理软件官网首页
+2025-07-06 14:28:47 | INFO     | app.core.agents.base:__init__:38 | 初始化 页面分析存储智能体 智能体 (ID: page_analysis_storage)
+2025-07-06 14:28:47 | INFO     | app.agents.web.page_element_data_storage_agent:__init__:40 | 页面分析存储智能体初始化完成
+2025-07-06 14:28:47 | INFO     | app.agents.factory:create_agent:141 | 创建智能体: page_analysis_storage
+2025-07-06 14:28:47 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:46 | 收到页面分析存储请求，会话ID: e8f678b1-4521-4348-b292-22518b3ef3b0
+2025-07-06 14:28:47 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:104 | 找到现有processing记录，更新记录ID: 7447b05c-132f-4ed1-bbdf-0734680e632a
+2025-07-06 14:28:47 | INFO     | app.agents.web.page_element_data_storage_agent:_prepare_elements_data:259 | 成功准备了 8 个页面元素数据
+2025-07-06 14:28:47 | INFO     | app.agents.web.page_element_data_storage_agent:_save_page_analysis_to_database:141 | 页面分析结果已更新到数据库，ID: 7447b05c-132f-4ed1-bbdf-0734680e632a
+2025-07-06 14:28:47 | INFO     | app.core.agents.base:end_performance_monitoring:179 | [页面分析存储智能体] operation 耗时: 0.01秒
+2025-07-06 14:28:47 | INFO     | app.agents.web.page_element_data_storage_agent:handle_message:81 | 页面分析结果存储完成，存储ID: 7447b05c-132f-4ed1-bbdf-0734680e632a
+2025-07-06 14:28:47 | INFO     | app.agents.factory:clear_registered_agents:395 | 已清空智能体注册记录

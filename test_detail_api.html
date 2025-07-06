@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试页面分析详情API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .result { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        pre { white-space: pre-wrap; word-wrap: break-word; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>页面分析详情API测试</h1>
+        
+        <button onclick="testDetailAPI()">测试详情API</button>
+        <button onclick="testListAPI()">测试列表API</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function testDetailAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="result">正在测试详情API...</div>';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/v1/web/page-analysis/975bee76-d370-4617-9f73-2ee132aa329c');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ 详情API测试成功</h3>
+                            <p><strong>页面名称:</strong> ${data.data.page_name}</p>
+                            <p><strong>页面类型:</strong> ${data.data.page_type}</p>
+                            <p><strong>置信度:</strong> ${data.data.confidence_score}</p>
+                            <p><strong>元素数量:</strong> ${data.data.elements_count}</p>
+                            <p><strong>UI元素:</strong> ${data.data.elements ? data.data.elements.length : 0} 个</p>
+                            <details>
+                                <summary>查看完整数据</summary>
+                                <pre>${JSON.stringify(data, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            <h3>❌ 详情API测试失败</h3>
+                            <p>状态码: ${response.status}</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <h3>❌ 详情API测试出错</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        async function testListAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="result">正在测试列表API...</div>';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/v1/web/page-analysis/pages?page=1&page_size=10');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ 列表API测试成功</h3>
+                            <p><strong>总记录数:</strong> ${data.total}</p>
+                            <p><strong>当前页记录:</strong> ${data.data.length}</p>
+                            <h4>记录列表:</h4>
+                            <ul>
+                                ${data.data.map(item => `
+                                    <li>
+                                        <strong>${item.page_name}</strong> 
+                                        (${item.page_type}) - 
+                                        置信度: ${item.confidence_score}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                            <details>
+                                <summary>查看完整数据</summary>
+                                <pre>${JSON.stringify(data, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            <h3>❌ 列表API测试失败</h3>
+                            <p>状态码: ${response.status}</p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <h3>❌ 列表API测试出错</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

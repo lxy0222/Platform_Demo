@@ -259,4 +259,29 @@ WebImageAnalysisRequest = WebMultimodalAnalysisRequest
 WebImageAnalysisResponse = WebMultimodalAnalysisResponse
 
 
+# ============ 页面分析存储消息类型 ============
+
+class PageAnalysisStorageRequest(BaseMessage):
+    """页面分析结果存储请求消息"""
+    session_id: str = Field(..., description="会话ID")
+    analysis_id: str = Field(..., description="分析ID")
+    page_name: str = Field(..., description="页面名称")
+    page_url: Optional[str] = Field(None, description="页面URL")
+    page_type: str = Field(default="unknown", description="页面类型")
+    page_description: str = Field(..., description="页面描述")
+    analysis_result: PageAnalysis = Field(..., description="页面分析结果")
+    confidence_score: float = Field(default=0.0, description="置信度分数")
+    analysis_metadata: Dict[str, Any] = Field(default_factory=dict, description="分析元数据")
+
+
+class PageAnalysisStorageResponse(BaseMessage):
+    """页面分析结果存储响应消息"""
+    session_id: str = Field(..., description="会话ID")
+    analysis_id: str = Field(..., description="分析ID")
+    storage_id: str = Field(..., description="存储记录ID")
+    status: str = Field(..., description="存储状态: success, failed")
+    message: str = Field(..., description="响应消息")
+    stored_elements_count: int = Field(default=0, description="存储的元素数量")
+
+
 

@@ -1,0 +1,336 @@
+/* 页面分析容器 */
+.page-analysis-container {
+  padding: 24px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+/* 页面头部 */
+.page-header {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 24px;
+  margin-right: 16px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+/* 统计卡片 */
+.stats-card {
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* 主要标签页 */
+.main-tabs {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.main-tabs .ant-tabs-tab {
+  padding: 12px 24px;
+  font-weight: 500;
+}
+
+.main-tabs .ant-tabs-tab-active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  color: #fff !important;
+}
+
+/* 上传卡片 */
+.upload-card {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.upload-section {
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.config-section {
+  padding: 24px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 12px;
+  color: #fff;
+}
+
+.config-section .ant-form-item-label > label {
+  color: #fff;
+  font-weight: 500;
+}
+
+.upload-dragger {
+  border: 2px dashed #d9d9d9 !important;
+  border-radius: 12px !important;
+  background: #fafafa !important;
+  transition: all 0.3s ease !important;
+}
+
+.upload-dragger:hover {
+  border-color: #1890ff !important;
+  background: #f0f8ff !important;
+}
+
+.upload-dragger .ant-upload-drag-icon {
+  margin-bottom: 16px;
+}
+
+.upload-dragger .ant-upload-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.upload-dragger .ant-upload-hint {
+  color: #666;
+  font-size: 14px;
+}
+
+/* 分析按钮 */
+.analyze-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  height: 48px !important;
+  padding: 0 32px !important;
+}
+
+.analyze-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4) !important;
+}
+
+/* 记录卡片 */
+.records-card {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* 搜索卡片 */
+.search-card {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.search-section {
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.search-tips {
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: #fff;
+}
+
+.search-tips .ant-alert {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+.search-tips .ant-alert-message {
+  color: #fff;
+  font-weight: 500;
+}
+
+.search-tips .ant-alert-description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.search-tips .ant-tag {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.search-tips .ant-tag:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.records-table {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.records-table .ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  font-weight: 500;
+}
+
+.records-table .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: top;
+}
+
+.records-table .ant-table-tbody > tr:hover > td {
+  background: #f8f9ff;
+}
+
+/* 结果模态框 */
+.result-modal .ant-modal-content {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.result-modal .ant-modal-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  padding: 20px 24px;
+}
+
+.result-modal .ant-modal-title {
+  color: #fff;
+  font-weight: 500;
+}
+
+.result-modal .ant-modal-close {
+  color: #fff;
+}
+
+.result-modal .ant-modal-close:hover {
+  color: #fff;
+  opacity: 0.8;
+}
+
+.result-content {
+  padding: 24px;
+}
+
+.result-content .ant-card {
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.result-content .ant-list-item {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 0;
+}
+
+.result-content .ant-list-item:last-child {
+  border-bottom: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .page-analysis-container {
+    padding: 16px;
+  }
+
+  .page-header {
+    padding: 16px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .upload-section,
+  .config-section {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .main-tabs {
+    padding: 16px;
+  }
+}
+
+/* 动画效果 */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.ant-tag.ant-tag-processing {
+  animation: pulse 1.5s infinite;
+}
+
+/* 自定义滚动条 */
+.result-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.result-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.result-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.result-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

@@ -34,20 +34,24 @@ class AgentFactory:
         try:
             # Web平台智能体
             from app.agents.web.image_analyzer import ImageAnalyzerAgent
+            from app.agents.web.page_analyzer import PageAnalyzerAgent
             from app.agents.web.yaml_generator import YAMLGeneratorAgent
             from app.agents.web.yaml_executor import YAMLExecutorAgent
             from app.agents.web.playwright_generator import PlaywrightGeneratorAgent
             from app.agents.web.playwright_executor import PlaywrightExecutorAgent
             from app.agents.web.script_database_saver import ScriptDatabaseSaverAgent
+            from app.agents.web.page_element_data_storage_agent import PageAnalysisStorageAgent
             
             # 注册智能体类
             self._agent_classes.update({
                 AgentTypes.IMAGE_ANALYZER.value: ImageAnalyzerAgent,
+                AgentTypes.PAGE_ANALYZER.value: PageAnalyzerAgent,
                 AgentTypes.YAML_GENERATOR.value: YAMLGeneratorAgent,
                 AgentTypes.YAML_EXECUTOR.value: YAMLExecutorAgent,
                 AgentTypes.PLAYWRIGHT_GENERATOR.value: PlaywrightGeneratorAgent,
                 AgentTypes.PLAYWRIGHT_EXECUTOR.value: PlaywrightExecutorAgent,
                 AgentTypes.SCRIPT_DATABASE_SAVER.value: ScriptDatabaseSaverAgent,
+                AgentTypes.PAGE_ANALYSIS_STORAGE.value: PageAnalysisStorageAgent,
             })
             
             # 调试信息
@@ -208,6 +212,15 @@ class AgentFactory:
                 collector=collector,
             )
 
+            # 注册页面分析智能体
+            await self.register_agent(
+                runtime,
+                AgentTypes.PAGE_ANALYZER.value,
+                TopicTypes.PAGE_ANALYZER.value,
+                enable_user_feedback=enable_user_feedback,
+                collector=collector,
+            )
+
             # 注册YAML生成智能体
             await self.register_agent(
                 runtime,
@@ -241,6 +254,13 @@ class AgentFactory:
                 runtime,
                 AgentTypes.SCRIPT_DATABASE_SAVER.value,
                 TopicTypes.SCRIPT_DATABASE_SAVER.value
+            )
+
+            # 注册页面分析存储智能体
+            await self.register_agent(
+                runtime,
+                AgentTypes.PAGE_ANALYSIS_STORAGE.value,
+                TopicTypes.PAGE_ANALYSIS_STORAGE.value
             )
 
             logger.info(f"Web平台智能体注册完成，共注册 {len(self._registered_agents)} 个智能体")

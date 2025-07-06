@@ -65,16 +65,22 @@ class DatabaseManager:
         """创建数据库表"""
         if not self._initialized:
             await self.initialize()
-        
+
         try:
             # 导入Base以避免循环导入
             from app.database.models.base import Base
             async with self.engine.begin() as conn:
-                await conn.run_sync(Base.metadata.create_all)
+                await conn.run_sync(Base.metadata.create_all, checkfirst=True)
             logger.info("数据库表创建成功")
         except Exception as e:
-            logger.error(f"数据库表创建失败: {e}")
-            raise
+            # 检查是否是索引重复错误
+            error_str = str(e).lower()
+            if 'duplicatetableerror' in error_str or 'already exists' in error_str:
+                logger.warning(f"数据库表或索引已存在，跳过创建: {e}")
+                # 不抛出异常，继续运行
+            else:
+                logger.error(f"数据库表创建失败: {e}")
+                raise
     
     async def drop_tables(self):
         """删除数据库表"""

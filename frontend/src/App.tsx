@@ -40,6 +40,13 @@ const App: React.FC = () => {
               <Route path="test/reports" element={<TestReports />} />
 
               {/* Web自动化路由 */}
+              <Route path="web/page-analysis" element={<PageAnalysis />} />
+              <Route path="web/create" element={<TestCreation />} />
+              <Route path="web/execution" element={<UnifiedTestExecution />} />
+              <Route path="web/execution/:sessionId" element={<UnifiedTestExecution />} />
+              <Route path="web/results" element={<TestResults />} />
+              <Route path="web/results/:sessionId" element={<TestResults />} />
+              <Route path="web/reports" element={<TestReports />} />
               <Route path="web/*" element={<TestCreation />} />
 
               {/* Android自动化路由 */}

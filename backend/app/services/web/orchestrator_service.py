@@ -199,6 +199,65 @@ class WebOrchestrator:
             generate_formats=["playwright"]
         )
 
+    # ==================== 业务流程2: 页面元素分析 ====================
+
+    async def analyze_page_elements(
+        self,
+        session_id: str,
+        image_data: str,
+        page_name: str = "",
+        page_description: str = "",
+        page_url: str = ""
+    ):
+        """
+        业务流程2: 页面元素分析（仅分析，不生成脚本）
+
+        Args:
+            session_id: 会话ID
+            image_data: 图片数据（base64编码）
+            page_name: 页面名称
+            page_description: 页面描述
+            page_url: 页面URL
+
+        Returns:
+            Dict[str, Any]: 分析结果
+        """
+        try:
+            logger.info(f"开始页面元素分析，会话ID: {session_id}")
+
+            # 初始化运行时
+            await self._setup_runtime(session_id)
+
+            # 构建页面分析请求
+            from app.core.messages.web import WebMultimodalAnalysisRequest
+
+            analysis_request = WebMultimodalAnalysisRequest(
+                session_id=session_id,
+                image_data=image_data,
+                test_description=page_description or f"分析页面'{page_name}'的UI元素",
+                additional_context=f"页面名称: {page_name}\n页面URL: {page_url}\n请专注于识别和分析页面中的UI元素，不需要生成测试脚本。",
+                page_name=page_name,
+                page_url=page_url
+            )
+
+            # 发送消息到页面分析智能体
+            from autogen_core import AgentId
+            await self.runtime.send_message(
+                message=analysis_request,
+                recipient=AgentId(type=AgentTypes.PAGE_ANALYZER.value, key="default")
+            )
+
+            logger.info(f"页面元素分析完成，会话ID: {session_id}")
+            return {"success": True, "session_id": session_id}
+
+        except Exception as e:
+            logger.error(f"页面元素分析失败: {str(e)}")
+            import traceback
+            logger.error(f"详细错误信息: {traceback.format_exc()}")
+            raise
+        finally:
+            await self._cleanup_runtime()
+
     # ==================== 业务流程3: YAML脚本执行 ====================
 
     async def execute_yaml_script(

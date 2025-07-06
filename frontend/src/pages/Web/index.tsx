@@ -9,6 +9,7 @@ import TestExecution from './TestExecution/TestExecution';
 import UnifiedTestExecution from './TestExecution/UnifiedTestExecution';
 import TestResults from './TestResults/TestResults';
 import TestReports from './TestReports/TestReports';
+import PageAnalysis from './PageAnalysis/PageAnalysis';
 
 const WebModule: React.FC = () => {
   return (
@@ -18,6 +19,9 @@ const WebModule: React.FC = () => {
 
       {/* Web测试创建页面 - 优化版本 */}
       <Route path="create-optimized" element={<WebTestCreationOptimized />} />
+
+      {/* Web页面分析页面 */}
+      <Route path="page-analysis" element={<PageAnalysis />} />
 
       {/* Web测试执行页面 - 原版本 */}
       <Route path="execution-legacy" element={<TestExecution />} />
